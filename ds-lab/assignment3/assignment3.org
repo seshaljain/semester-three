@@ -1,0 +1,256 @@
+#+title: DS Lab Assignment 3
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 25, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Sequential Search
+#+BEGIN_SRC cpp :tangle a3p1.cpp
+#include <bits/stdc++.h>
+#define SIZE 10
+
+using namespace std;
+
+int main(){
+  int arr[SIZE] = {0,1,2,34,2,24,-1,9,10,11};
+  int key = 0;
+  bool effectiveSearch = false;
+
+  cout << "Given array is: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << arr[i] << " ";
+  }
+
+  cout << "\nEnter search key: ";
+  cin >> key;
+
+  for (int i = 0; i < SIZE; i++) {
+    if (arr[i] == key) {
+      cout << "Key found at index " << i << "\n";
+      effectiveSearch = true;
+    }
+  }
+
+  if (!effectiveSearch) {
+    cout << "Key not found\n";
+  }
+
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a3p1
+Given array is: 0 1 2 34 2 24 -1 9 10 11
+Enter search key: -1
+Key found at index 6
+
+$ ./a3p1
+Given array is: 0 1 2 34 2 24 -1 9 10 11
+Enter search key: 12
+Key not found
+#+END_EXAMPLE
+
+** Analysis of Time Complexity of Sequential Search
+This algorithm works in linear time, in that for $n$ inputs, the comparision is performed $n$ times.
+
+In the best case, the key element is stored at the initial (0) index, and thus only 1 comparision would be required.
+*Best case time complexity* is 1.
+
+In the worst case, the key element is stored at the last index, or not in the array. This would require $n$ comparisions.
+*Worst case time complexity* is $n$.
+
+Since there are $n$ elements, we can find the total number of comparisions for element in 1^st, 2^nd ... index.
+Thus, average case complexity is
+
+#+begin_center
+$\frac{1+2+3...+n}{n} = \frac{n(n+1)}{2}\cdot\frac{1}{n} = \frac{n+1}{2}$
+#+end_center
+
+* Operations on 2D Array
+** Extremum Elements of 2D Array
+#+BEGIN_SRC cpp :tangle a3p2.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findExtremes(int arr[100][100]){
+  int maxElement = arr[0][0], minElement = arr[0][0];
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] > maxElement) {
+        maxElement = arr[i][j];
+      }
+      if (arr[i][j] < minElement) {
+        minElement = arr[i][j];
+      }
+    }
+  }
+
+  cout << "Maximum element is " << maxElement << "";
+  cout << "\nMinimum element is " << minElement << "\n";
+}
+
+int main()
+{
+  int arr[100][100];
+
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  findExtremes(arr);
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+begin_example
+$ ./a3p2
+Maximum element is 100
+Minimum element is 0
+#+end_example
+
+** Second Largest Element of 2D Array
+#+BEGIN_SRC cpp :tangle a3p3.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findSecondMax(int arr[100][100]){
+  int maxElement = arr[0][0], secondMaxElement = arr[0][0];
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] > maxElement) {
+        maxElement = arr[i][j];
+      }
+    }
+  }
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] != maxElement) {
+        if (arr[i][j] > secondMaxElement)
+          secondMaxElement = arr[i][j];
+      }
+    }
+  }
+
+  cout << "Maximum element is " << maxElement << "";
+  cout << "\nSecond maximum element is " << secondMaxElement << "\n";
+}
+
+int main() {
+  int arr[100][100];
+
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  findSecondMax(arr);
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+begin_example
+$ ./a3p3
+Maximum element is 100
+Second maximum element is 99
+#+end_example
+
+** Search in 2D Array
+#+BEGIN_SRC cpp :tangle a3p4.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findElement(int arr[100][100], int key){
+  bool elementFound = false;
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] == key) {
+        cout << "Found key at location " << i << ", " << j << "\n";
+        elementFound = true;
+      }
+    }
+  }
+
+  if (!elementFound) cout << "Key not found\n";
+}
+
+int main() {
+  int arr[100][100];
+  int key;
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  cout << "Enter key: ";
+  cin >> key;
+
+  findElement(arr, key);
+  return 0;
+}
+
+#+END_SRC
+
+*** Output
+#+begin_example
+$ ./a3p4
+Enter key: 100
+Found key at location 0, 28
+Found key at location 3, 57
+Found key at location 4, 16
+Found key at location 4, 64
+Found key at location 5, 4
+Found key at location 5, 38
+Found key at location 5, 82
+Found key at location 6, 96
+Found key at location 8, 24
+Found key at location 9, 13
+Found key at location 11, 3
+Found key at location 14, 81
+Found key at location 15, 99
+Found key at location 16, 69
+Found key at location 17, 39
+Found key at location 18, 75
+Found key at location 19, 97
+Found key at location 21, 15
+Found key at location 21, 45
+Found key at location 21, 63
+Found key at location 23, 17
+Found key at location 23, 52
+Found key at location 24, 56
+Found key at location 27, 56
+Found key at location 27, 61
+Found key at location 28, 42
+Found key at location 28, 60
+Found key at location 30, 22
+Found key at location 30, 98
+Found key at location 33, 46
+Found key at location 34, 65
+Found key at location 34, 90
+Found key at location 35, 17
+Found key at location 36, 40
+Found key at location 38, 75
+Found key at location 38, 86
+Found key at location 42, 90
+Found key at location 43, 80
+#+end_example

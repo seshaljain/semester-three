@@ -1,0 +1,343 @@
+#+title: DS Lab Assignment 1
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 18, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+To print various details of 1D ~int~ array
+#+BEGIN_SRC c :tangle a1p1.c
+#include <stdio.h>
+
+int main(void) {
+  int arr[10] = {0,1,2,3,4,5,6,7,8,9};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of int is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%d stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p1
+Size of int is 4.
+Given array is:
+0 stored at 2382292592
+1 stored at 2382292596
+2 stored at 2382292600
+3 stored at 2382292604
+4 stored at 2382292608
+5 stored at 2382292612
+6 stored at 2382292616
+7 stored at 2382292620
+8 stored at 2382292624
+9 stored at 2382292628
+#+END_EXAMPLE
+
+* Program 2
+To print various details of 1D ~float~ array
+#+BEGIN_SRC c :tangle a1p2.c
+#include <stdio.h>
+
+int main(void) {
+  float arr[10] = {0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of float is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%f stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p2
+Size of float is 4.
+Given array is:
+0.000000 stored at 605464720
+1.000000 stored at 605464724
+2.000000 stored at 605464728
+3.000000 stored at 605464732
+4.000000 stored at 605464736
+5.000000 stored at 605464740
+6.000000 stored at 605464744
+7.000000 stored at 605464748
+8.000000 stored at 605464752
+9.000000 stored at 605464756
+#+END_EXAMPLE
+
+* Program 3
+To print various details of 1D ~char~ array
+#+BEGIN_SRC c :tangle a1p3.c
+#include <stdio.h>
+
+int main(void) {
+  char arr[10] = {'a','b','c','d','e','f','g','h','i','j'};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of char is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%c stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p3
+Size of char is 1.
+Given array is:
+a stored at 1205464894
+b stored at 1205464895
+c stored at 1205464896
+d stored at 1205464897
+e stored at 1205464898
+f stored at 1205464899
+g stored at 1205464900
+h stored at 1205464901
+i stored at 1205464902
+j stored at 1205464903
+#+END_EXAMPLE
+
+* Organisation of One Dimentional Array
+Arrays are a type of fundamental data structures used for storing similar data in an organised manner.
+
+They are allocated contiguous memory for storage.
+
+Arrays provide random access, i.e. we can access any element of the array directly using its index.
+
+The memory location of i^th element in an array is given by $\alpha + (i - 1) \times d$, where $\alpha$ is the base address, i is the index, and d is the word size.
+
+* Program 4
+2D ~int~ array
+#+BEGIN_SRC c :tangle a1p4.cpp
+#include<stdio.h>
+int main(){
+   int arr[4][4];
+
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf("%d", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%d ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p4
+Enter value for arr[0][0]:1
+Enter value for arr[0][1]:2
+Enter value for arr[0][2]:3
+Enter value for arr[0][3]:4
+Enter value for arr[1][0]:5
+Enter value for arr[1][1]:6
+Enter value for arr[1][2]:7
+Enter value for arr[1][3]:8
+Enter value for arr[2][0]:9
+Enter value for arr[2][1]:0
+Enter value for arr[2][2]:1
+Enter value for arr[2][3]:2
+Enter value for arr[3][0]:5
+Enter value for arr[3][1]:4
+Enter value for arr[3][2]:3
+Enter value for arr[3][3]:6
+Given array is:
+1 2 3 4
+5 6 7 8
+9 0 1 2
+5 4 3 6
+
+Memory locations are:
+1171643584 1171643588 1171643592 1171643596
+1171643600 1171643604 1171643608 1171643612
+1171643616 1171643620 1171643624 1171643628
+1171643632 1171643636 1171643640 1171643644
+#+END_EXAMPLE
+
+* Program 5
+2D ~float~ array
+#+BEGIN_SRC c :tangle a1p5.cpp
+#include<stdio.h>
+int main(){
+   float arr[5][4];
+
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf("%f", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%f ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p5
+Enter value for arr[0][0]:1
+Enter value for arr[0][1]:2
+Enter value for arr[0][2]:3
+Enter value for arr[0][3]:4
+Enter value for arr[1][0]:5
+Enter value for arr[1][1]:6
+Enter value for arr[1][2]:5
+Enter value for arr[1][3]:4
+Enter value for arr[2][0]:7
+Enter value for arr[2][1]:9
+Enter value for arr[2][2]:7
+Enter value for arr[2][3]:1
+Enter value for arr[3][0]:5
+Enter value for arr[3][1]:3
+Enter value for arr[3][2]:9
+Enter value for arr[3][3]:6
+Enter value for arr[4][0]:3
+Enter value for arr[4][1]:1
+Enter value for arr[4][2]:3
+Enter value for arr[4][3]:5
+Given array is:
+1.000000 2.000000 3.000000 4.000000
+5.000000 6.000000 5.000000 4.000000
+7.000000 9.000000 7.000000 1.000000
+5.000000 3.000000 9.000000 6.000000
+3.000000 1.000000 3.000000 5.000000
+
+Memory locations are:
+3736833072 3736833076 3736833080 3736833084
+3736833088 3736833092 3736833096 3736833100
+3736833104 3736833108 3736833112 3736833116
+3736833120 3736833124 3736833128 3736833132
+3736833136 3736833140 3736833144 3736833148
+#+END_EXAMPLE
+
+* Program 6
+2D ~char~ array
+#+BEGIN_SRC c :tangle a1p6.cpp
+#include<stdio.h>
+int main(){
+   char arr[5][4];
+
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf(" %c", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%c ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a1p6
+Enter value for arr[0][0]:a
+Enter value for arr[0][1]:b
+Enter value for arr[0][2]:c
+Enter value for arr[0][3]:d
+Enter value for arr[1][0]:e
+Enter value for arr[1][1]:f
+Enter value for arr[1][2]:g
+Enter value for arr[1][3]:h
+Enter value for arr[2][0]:j
+Enter value for arr[2][1]:k
+Enter value for arr[2][2]:l
+Enter value for arr[2][3]:m
+Enter value for arr[3][0]:n
+Enter value for arr[3][1]:o
+Enter value for arr[3][2]:p
+Enter value for arr[3][3]:q
+Enter value for arr[4][0]:r
+Enter value for arr[4][1]:s
+Enter value for arr[4][2]:t
+Enter value for arr[4][3]:u
+Given array is:
+a b c d
+e f g h
+j k l m
+n o p q
+r s t u
+
+Memory locations are:
+460672048 460672049 460672050 460672051
+460672052 460672053 460672054 460672055
+460672056 460672057 460672058 460672059
+460672060 460672061 460672062 460672063
+460672064 460672065 460672066 460672067
+#+END_EXAMPLE
+
+Column-major order is used in *FORTRAN, Julia* etc

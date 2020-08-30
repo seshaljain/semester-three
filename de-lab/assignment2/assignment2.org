@@ -1,0 +1,127 @@
+#+title: DE Lab Assignment 2
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 24, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to convert a number from radix $x$ to radix =10=
+#+BEGIN_SRC cpp :tangle a2p1.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+  int radix;
+  string num;
+  cout << "Enter number: ";
+  cin >> num;
+  cout << "Enter radix: ";
+  cin >> radix;
+
+  int num_10 = 0, radPow = 1;
+  for (int i = num.length() - 1, j = 0; i >= 0; i--) {
+    char charRigit = num[i];
+    int rigit = (charRigit <= '9') ? charRigit - '0' : charRigit - 'A' + 10;
+    num_10 += (rigit * radPow);
+    radPow *= radix;
+  }
+
+  cout << num_10 << "\n";
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a2p1
+Enter number: 1F
+Enter radix: 16
+31
+#+end_example
+
+* Program 2
+Program to convert a number from radix =10= to radix $x$
+#+BEGIN_SRC cpp :tangle a2p2.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(void) {
+  string rigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+  string res = "";
+  int num = 0, base = 0, rem = 0;
+  cout << "Enter number: ";
+  cin >> num;
+  cout << "Enter base: ";
+  cin >> base;
+  do {
+    rem = num % base;
+    res = res + rigits[rem];
+    num /= base;
+  } while (num != 0);
+
+  string result(res.rbegin(), res.rend());
+  cout << result << "\n";
+  return 0;
+}
+
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a2p2
+Enter number: 31
+Enter base: 16
+1F
+#+end_example
+
+* Program 3
+Program to convert a number from radix $x$ to radix $y$ where $x \neq y \neq 10$
+#+BEGIN_SRC cpp :tangle a2p3.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+  int radix_x, radix_y;
+  string num, res = "", rigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+
+  cout << "Enter number: ";
+  cin >> num;
+  cout << "From radix x: ";
+  cin >> radix_x;
+  cout << "To radix y: ";
+  cin >> radix_y;
+
+  int num_10 = 0, radPow = 1;
+  for (int i = num.length() - 1, j = 0; i >= 0; i--) {
+    char charRigit = num[i];
+    int rigit = (charRigit <= '9') ? charRigit - '0' : charRigit - 'A' + 10;
+    num_10 += (rigit * radPow);
+    radPow *= radix_x;
+  }
+
+  int rem = 0;
+  do {
+    rem = num_10 % radix_y;
+    res = res + rigits[rem];
+    num_10 /= radix_y;
+  } while (num_10 != 0);
+
+  string result(res.rbegin(), res.rend());
+  cout << result << "\n";
+
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a2p3
+Enter number: 31
+From radix x: 10
+To radix y: 16
+1F
+#+end_example

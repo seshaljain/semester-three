@@ -1,0 +1,87 @@
+#+title: DE Lab Assignment 1
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 17, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to convert radix 10 number without radix point to any random radix r
+#+BEGIN_SRC cpp :tangle a1p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+int main(void) {
+  string rigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+  string res = "";
+  int num = 0, base = 0, rem = 0;
+  cout << "Enter number: ";
+  cin >> num;
+  cout << "Enter base: ";
+  cin >> base;
+  do {
+    rem = num % base;
+    res = res + rigits[rem];
+    num /= base;
+  } while (num != 0);
+  string result(res.rbegin(), res.rend());
+  cout << result << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a1p1
+Enter number: 17
+Enter base: 2
+10001
+#+end_example
+
+* Program 2
+Program to convert radix 10 number with radix point to any random radix r
+#+BEGIN_SRC cpp :tangle a1p2.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main(void) {
+  string rigits = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+  string res_int = "", res_float = "";
+
+  double num = 0.679;
+  int base = 0, rem = 0, p = 0;
+
+  cout << "Enter number: ";
+  cin >> num;
+
+  cout << "Enter base: ";
+  cin >> base;
+
+  int int_part = (int)num;
+  double float_part = num - int_part;
+
+  do {
+    rem = int_part % base;
+    res_int = res_int + rigits[rem];
+    int_part /= base;
+  } while (int_part != 0);
+
+  string result(res_int.rbegin(), res_int.rend());
+
+  while (float_part != 0 && p++ < 6) {
+    double temp = float_part *= base;
+    res_float = res_float + rigits[(int)temp];
+    float_part = float_part - (int)float_part;
+  }
+
+  cout << result << "." << res_float << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a1p2
+Enter number: 17.693
+Enter base: 5
+32.321303
+#+end_example

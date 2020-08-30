@@ -1,0 +1,175 @@
+#+title: PPL Lab Assignment 3
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 28, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to create, initialize, assign, and access a pointer variable
+#+BEGIN_SRC c++ :tangle a3p1.cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  int x, y, *p, *q;
+
+  cout << "Enter x: ";
+  cin >> x;
+  p = &x;
+
+  cout << "x = " << x << "; &x = " << &x << "\n";
+  cout << "p = " << p << "; *p = " << *p << "\n";
+
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p1
+Enter x: 5
+x = 5; &x = 0x7ffe2b05b4cc
+p = 0x7ffe2b05b4cc; *p = 5
+#+end_example
+
+* Program 2
+Program to swap two numbers using pointers.
+#+BEGIN_SRC cpp :tangle a3p2.cpp
+#include <iostream>
+
+using namespace std;
+
+void swapInt(int *x, int *y) {
+  int temp = *x;
+  ,*x = *y;
+  ,*y = temp;
+}
+
+int main()
+{
+  int x, y;
+  cout << "Enter x: ";
+  cin >> x;
+  cout << "Enter y: ";
+  cin >> y;
+
+  cout << "x: " << x << ", y: " << y;
+
+  swapInt(&x, &y);
+  cout << "\nAfter swapping\n";
+  cout << "x: " << x << ", y: " << y << "\n";
+
+  return 0;
+}
+
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p2
+Enter x: 5
+Enter y: 7
+x: 5, y: 7
+After swapping
+x: 7, y: 5
+#+end_example
+
+* Program 3
+Program to count vowels and consonants in a string using a pointer
+#+BEGIN_SRC cpp :tangle a3p3.cpp
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+  char s[50];
+  cout << "Enter string: ";
+  cin.getline(s, sizeof(s));
+
+  int vowels = 0;
+  int consonants = 0;
+
+  for (char *i = s; *i != '\0'; ++i) {
+    if (isalpha(*i)) {
+      switch(*i) {
+      case 'a':
+      case 'e':
+      case 'i':
+      case 'o':
+      case 'u':
+        vowels++;
+        break;
+      default:
+        consonants++;
+      }
+    }
+  }
+
+  cout << s << " has " << vowels << " vowels and " << consonants << " consonants\n";
+
+  return 0;
+}
+
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p3
+Enter string: Hello World!
+Hello World! has 3 vowels and 7 consonants
+#+end_example
+
+* Program 4
+Program to read array elements and print with addresses
+#+BEGIN_SRC cpp :tangle a3p4.cpp
+#include <iostream>
+
+using namespace std;
+
+int main(void) {
+  int arr[10];
+  cout << "Enter elements of a[10]:\n";
+
+  for (int i = 0; i < 10; ++i) {
+    cin >> arr[i];
+  }
+
+  cout << "\nGiven array is:\n";
+  for (int i = 0; i < 10; ++i) {
+    cout << arr[i] << " stored at " <<  &arr[i] << "\n";
+  }
+
+  return 0;
+}
+
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p4
+Enter elements of a[10]:
+1
+4
+2
+6
+2
+1
+8
+3
+1
+5
+
+Given array is:
+1 stored at 0x7fffbe38d8c0
+4 stored at 0x7fffbe38d8c4
+2 stored at 0x7fffbe38d8c8
+6 stored at 0x7fffbe38d8cc
+2 stored at 0x7fffbe38d8d0
+1 stored at 0x7fffbe38d8d4
+8 stored at 0x7fffbe38d8d8
+3 stored at 0x7fffbe38d8dc
+1 stored at 0x7fffbe38d8e0
+5 stored at 0x7fffbe38d8e4
+#+end_example

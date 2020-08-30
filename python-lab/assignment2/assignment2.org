@@ -1,0 +1,140 @@
+#+title: Python Lab Assignment 2
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 27, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+#+BEGIN_SRC python :tangle a2p1.py
+name = input("What is your name: ")
+branch = input("What is your branch: ")
+section = input("What is your section: ")
+
+print("Hello", name)
+print("Welcome to", branch, "department")
+print("Have you made any new friends in", section, "?")
+#+END_SRC
+
+** Output
+#+begin_example
+What is your name: Seshal
+What is your branch: CSE
+What is your section: CSE 3
+Hello Seshal
+Welcome to CSE department
+Have you made any new friends in CSE 3 ?
+#+end_example
+
+* Program 2
+#+BEGIN_SRC python :tangle a2p2.py
+name = input("What is your name: ")
+fav_color = input("What is your favorite color: ")
+
+print(name, "likes", fav_color, "color")
+#+END_SRC
+
+** Output
+#+begin_example
+What is your name: Seshal
+What is your favorite color: Blue
+Seshal likes Blue color
+#+end_example
+
+* Program 3
+#+BEGIN_SRC python :tangle a2p3.py
+import datetime
+
+birth_year = int(input("Enter your birth year: "))
+
+now = datetime.datetime.now()
+curr_year = now.year
+
+age = curr_year - birth_year
+
+print("Your age is", age)
+#+END_SRC
+
+** Output
+#+begin_example
+Enter your birth year: 2001
+Your age is 19
+#+end_example
+
+* Program 4
+** INR to USD
+#+BEGIN_SRC python :tangle a2p4.py
+inr = int(input("Enter amount in INR: "))
+
+usd = inr / 74.24
+
+print(inr, "INR =", usd, "USD")
+#+END_SRC
+
+*** Output
+#+begin_example
+Enter amount in INR: 100
+100 INR = 1.3469827586206897 USD
+#+end_example
+
+** USD to INR
+#+BEGIN_SRC python :tangle a2p5.py
+usd = int(input("Enter amount in USD: "))
+
+inr = usd * 74.24
+
+print(usd, "USD =", inr, "INR")
+#+END_SRC
+
+*** Output
+#+begin_example
+Enter amount in USD: 1
+1 USD = 74.24 INR
+#+end_example
+
+* Problem 5
+#+BEGIN_SRC python :tangle a2p6.py
+pound = 0.453592
+
+weight_in_pound = int(input("Enter weight in pounds: "))
+
+weight_in_kg = pound * weight_in_pound
+
+print(weight_in_pound, "pounds =", weight_in_kg, "kilograms")
+#+END_SRC
+
+** Output
+#+begin_example
+Enter weight in pounds: 10
+10 pounds = 4.53592 kilograms
+#+end_example
+
+* Problem 6
+#+BEGIN_SRC python :tangle a2p7.py
+choice = input(("1. C->F\n2. F->C\nEnter choice: "))
+
+if choice == "1":
+    cel = int(input("Enter temperature in Celsius: "))
+    fah = cel * 1.8 + 32
+    print(cel, "C = ", fah, "F")
+elif choice == "2":
+    fah = int(input("Enter temperature in Fahrenheit: "))
+    cel = (fah - 32) * 5 / 9
+    print(fah, "F = ", cel, "C")
+else:
+    print("Incorrect option")
+#+END_SRC
+
+** Output
+#+begin_example
+1. C->F
+2. F->C
+Enter choice: 2
+Enter temperature in Fahrenheit: 97
+97 F =  36.111111111111114 C
+
+1. C->F
+2. F->C
+Enter choice: 1
+Enter temperature in Celsius: 27
+27 C =  80.6 F
+#+end_example

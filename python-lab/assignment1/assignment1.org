@@ -1,0 +1,9 @@
+#+title: Python Lab Assignment 1
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 20, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+#+BEGIN_SRC python :tangle a1p1.py
+print(4 + 5)
+#+END_SRC

@@ -1,0 +1,129 @@
+#+title: PPL Lab Assignment 1
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: August 14, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Problem 1
+Program to sort an array
+#+BEGIN_SRC c++ :tangle a1p1.cpp
+#include <iostream>
+
+#define SIZE 10
+
+using namespace std;
+
+int arr[SIZE] = {4, 6, 13, 2, 1, 9, 7, 8, 5, 36};
+
+void printArr() {
+   for(int i = 0; i < SIZE; i++) {
+     cout << arr[i] << " ";
+   }
+   cout << "\n";
+}
+
+void sortArr() {
+  int minIndex;
+  for(int i = 0; i < SIZE - 1; i++) {
+    minIndex = i;
+    for(int j = i + 1; j < SIZE; j++) {
+      if(arr[j] < arr[minIndex]) {
+        minIndex = j;
+      }
+    }
+    int temp = arr[minIndex];
+    arr[minIndex] = arr[i];
+    arr[i] = temp;
+  }
+}
+
+int main() {
+  cout << "Input:  ";
+  printArr();
+  sortArr();
+  cout << "Output: ";
+  printArr();
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a1p1
+Input:  4 6 13 2 1 9 7 8 5 36
+Output: 1 2 4 5 6 7 8 9 13 36
+#+end_example
+
+* Program 2
+Program to calculate factorial of number
+#+BEGIN_SRC c++ :tangle a1p2.cpp
+#include <iostream>
+
+using namespace std;
+
+int fact(int num) {
+  if (num == 0)
+    return 1;
+  return num * fact(num - 1);
+}
+
+int main(void) {
+  int i = 0;
+
+  cout << "Enter number: ";
+  cin >> i;
+  cout << "Factorial is: " << fact(i) << "\n";
+
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a1p2
+Enter number: 5
+Factorial is: 120
+#+end_example
+
+* Program 3
+Program to reverse an array
+#+BEGIN_SRC c++ :tangle a1p3.cpp
+#include <iostream>
+
+#define SIZE 10
+
+using namespace std;
+
+int arr[SIZE] = {4, 6, 13, 2, 1, 9, 7, 8, 5, 36};
+
+void printArr() {
+   for(int i = 0; i < SIZE; i++) {
+     cout << arr[i] << " ";
+   }
+   cout << "\n";
+}
+
+void revArr() {
+  for(int i = 0, j = SIZE - 1; i < SIZE / 2; i++, j--) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  }
+}
+
+int main() {
+  cout << "Input:  ";
+  printArr();
+  revArr();
+  cout << "Output: ";
+  printArr();
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a1p3
+Input:  4 6 13 2 1 9 7 8 5 36
+Output: 36 5 8 7 9 1 2 13 6 4
+#+end_example
