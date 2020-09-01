@@ -1,0 +1,123 @@
+#+title: PPL Lab Assignment 4
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 1, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to sort an array using pointers
+#+BEGIN_SRC c++ :tangle a4p1.cpp
+#include <iostream>
+using namespace std;
+
+#define SIZE 5
+
+int main()
+{
+  int *p = new int[SIZE];
+
+  cout << "Enter elements: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cin >> *(p + i);
+  }
+
+  cout << "Array before sorting: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << *(p + i) << " ";
+  }
+
+  for (int i = 0; i < SIZE; ++i) {
+    for (int j = i + 1; j < SIZE; ++j) {
+      if (*(p + i) > *(p + j)) {
+        int temp = *(p + i);
+        *(p + i) = *(p + j);
+        *(p + j) = temp;
+      }
+    }
+  }
+
+  cout << "\nArray after sorting: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << *(p + i) << " ";
+  }
+
+  cout << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a4p1
+Enter elements: 10 9 21 64 53
+Array before sorting: 10 9 21 64 53
+Array after sorting: 9 10 21 53 64
+#+end_example
+
+* Program 2
+Program to print a string in reverse using a pointer
+#+BEGIN_SRC c++ :tangle a4p2.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  char *s = new char[20];
+
+  cout << "Enter string: ";
+  cin >> s;
+
+  int str_len = strlen(s);
+
+  cout << "Reversed string is: ";
+
+  for (int i = str_len - 1; i >= 0; i--) {
+    cout << *(s + i);
+  }
+
+  cout << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a4p2
+Enter string: asafoteida
+Reversed string is: adietofasa
+#+end_example
+
+* Program 3
+Program to compute the sum of all elements in an array using pointers
+#+BEGIN_SRC c++ :tangle a4p3.cpp
+#include <iostream>
+using namespace std;
+
+#define SIZE 5
+
+int main()
+{
+  int *p = new int[SIZE];
+
+  cout << "Enter elements: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cin >> *(p + i);
+  }
+
+  int sum = 0;
+
+  for (int i = 0; i < SIZE; ++i) {
+    sum += *(p + i);
+  }
+
+  cout << "Sum: " << sum << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a4p3
+Enter elements: 1 2 3 4 5
+Sum: 15
+#+end_example
