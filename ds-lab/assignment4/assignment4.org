@@ -1,0 +1,64 @@
+#+title: DS Lab Assignment 4
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 02, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Binary Search
+#+BEGIN_SRC cpp :tangle a4p1.cpp
+#include <bits/stdc++.h>
+#define SIZE 10
+
+using namespace std;
+
+int binarySearch(int arr[], int low, int high, int key)
+{
+  if (low <= high)
+  {
+    int mid = (low + high) / 2;
+    if (arr[mid] == key)
+      return mid;
+    if (arr[mid] > key)
+      return binarySearch(arr, low, mid - 1, key);
+      if (arr[mid] < key)
+      return binarySearch(arr, mid + 1, high, key);
+  }
+  return -1;
+}
+
+int main(){
+  int arr[SIZE] = {0,1,2,21,25,42,67,83,100, 129};
+  int key = 0;
+
+  cout << "Given array is: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << arr[i] << " ";
+  }
+
+  cout << "\nEnter search key: ";
+  cin >> key;
+
+  int index = binarySearch(arr, 0, SIZE - 1, key);
+
+  if (index == -1) {
+    cout << "Key not found.\n";
+  } else {
+    cout << "Key found at index " << index << ".\n";
+  }
+
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a4p1
+Given array is: 0 1 2 21 25 42 67 83 100 129
+Enter search key: 83
+Key found at index 7.
+
+$ ./a4p1
+Given array is: 0 1 2 21 25 42 67 83 100 129
+Enter search key: 130
+Key not found.
+#+END_EXAMPLE
