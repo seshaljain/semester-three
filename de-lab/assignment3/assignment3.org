@@ -1,0 +1,314 @@
+#+title: DE Lab Assignment 3
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 7, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Convert a number from radix $x$ to radix $y$ using relative direct conversion ($x$ < $y$)
+#+BEGIN_SRC cpp :tangle a3p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+char stringToRigit(string num, int b) {
+     string rigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     int n = stoi(num);
+     int res = 0, i = 0;
+     while (n) {
+          int rem = n % 10;
+          n /= 10;
+          res += rem * pow(b, i++);
+     }
+     return rigits[res];
+}
+
+string prependZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = '0' + s;
+          zeroes--;
+     }
+     return s;
+}
+
+string appendZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = s + '0';
+          zeroes--;
+     }
+     return s;
+}
+
+string formatNumber(string num, int d) {
+     int dot = num.find('.');
+     int intPartSize = dot;
+     int floatPartSize = num.size() - dot - 1;
+     string intPart = num.substr(0, dot);
+     string floatPart = num.substr(dot + 1);
+     return prependZeroes(intPart, d) + '.' + appendZeroes(floatPart, d);
+}
+
+int main() {
+     string num;
+     cout << "Enter number: ";
+     cin >> num;
+     int b1, b2;
+     cout << "From base: ";
+     cin >> b1;
+
+     cout << "To base: ";
+     cin >> b2;
+
+     int power = log(b2) / log(b1);
+
+     string formattedNumber = formatNumber(num, power);
+
+     string result = "";
+     int i = 0;
+     while (i < formattedNumber.length()) {
+          if (formattedNumber[i] == '.') {
+               result += '.';
+               i++;
+               continue;
+          } else {
+               result += stringToRigit(formattedNumber.substr(i, power), b1);
+          }
+          i += power;
+     }
+     cout << result << "\n";
+     return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p1
+Enter number: 10110101011.1010110
+From base: 2
+To base: 16
+5AB.AC
+#+end_example
+
+* Program 2
+Convert a number from radix $x$ to radix $y$ using relative direct conversion ($x$ > $y$)
+#+BEGIN_SRC cpp :tangle a3p2.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+string rigitToString(char num, int b) {
+     string rigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     int n = (num <= '9') ? num - '0' : num - 'A' + 10;
+     string res = "";
+     do {
+          int rem = n % b;
+          res = res + rigits[rem];
+          n /= b;
+     } while (n != 0);
+     string result(res.rbegin(), res.rend());
+     return result;
+}
+
+string prependZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = '0' + s;
+          zeroes--;
+     }
+     return s;
+}
+
+string appendZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = s + '0';
+          zeroes--;
+     }
+     return s;
+}
+
+string formatNumber(string num, int d) {
+     int dot = num.find('.');
+     int intPartSize = dot;
+     int floatPartSize = num.size() - dot - 1;
+     string intPart = num.substr(0, dot);
+     string floatPart = num.substr(dot + 1);
+     return prependZeroes(intPart, d) + '.' + appendZeroes(floatPart, d);
+}
+
+int main() {
+     string num;
+     cout << "Enter number: ";
+     cin >> num;
+     int b1, b2;
+     cout << "From base: ";
+     cin >> b1;
+
+     cout << "To base: ";
+     cin >> b2;
+
+     int power = log(b1) / log(b2);
+
+     string result = "";
+
+     for (int i = 0; i < num.length(); i++) {
+          if (num[i] == '.') {
+               result += '.';
+               continue;
+          } else {
+               string rTS = rigitToString(num[i], b2);
+               result += prependZeroes(rTS, power);
+          }
+     }
+
+     cout << result << "\n";
+     return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p2
+Enter number: 35778.526
+From base: 9
+To base: 3
+1012212122.120220
+#+end_example
+
+* Program 3
+Convert a number from radix $x$ to radix $y$ using relative indirect conversion
+#+BEGIN_SRC cpp :tangle a3p3.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int lcf(int x, int y) {
+     if (x == y) {
+          return x;
+     } else {
+          if (x < y) {
+               x = x + y;
+               y = x - y;
+               x = x - y;
+          }
+          return lcf(y, x / y);
+     }
+}
+
+string rigitToString(char num, int b) {
+     string rigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     int n = (num <= '9') ? num - '0' : num - 'A' + 10;
+     string res = "";
+     do {
+          int rem = n % b;
+          res = res + rigits[rem];
+          n /= b;
+     } while (n != 0);
+     string r1ToCommonBase(res.rbegin(), res.rend());
+     return r1ToCommonBase;
+}
+
+char stringToRigit(string num, int b) {
+     string rigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+     int n = stoi(num);
+     int res = 0, i = 0;
+     while (n) {
+          int rem = n % 10;
+          n /= 10;
+          res += rem * pow(b, i++);
+     }
+     return rigits[res];
+}
+
+string prependZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = '0' + s;
+          zeroes--;
+     }
+     return s;
+}
+
+string appendZeroes(string s, int n) {
+     int zeroes = 0;
+     if (s.length() % n != 0)
+          zeroes = n - (s.length() % n);
+     while(zeroes) {
+          s = s + '0';
+          zeroes--;
+     }
+     return s;
+}
+
+string formatNumber(string num, int d) {
+     int dot = num.find('.');
+     int intPartSize = dot;
+     int floatPartSize = num.size() - dot - 1;
+     string intPart = num.substr(0, dot);
+     string floatPart = num.substr(dot + 1);
+     return prependZeroes(intPart, d) + '.' + appendZeroes(floatPart, d);
+}
+
+int main() {
+     string num;
+     cout << "Enter number: ";
+     cin >> num;
+     int r1, r2;
+     cout << "From base: ";
+     cin >> r1;
+
+     cout << "To base: ";
+     cin >> r2;
+
+     int commonBase = lcf(r1, r2);
+     int p1 = log(r1) / log(commonBase);
+     int p2 = log(r2) / log(commonBase);
+
+     string r1ToCommonBase = "";
+
+     for (int i = 0; i < num.length(); i++) {
+          if (num[i] == '.') {
+               r1ToCommonBase += '.';
+               continue;
+          } else {
+               string rTS = rigitToString(num[i], commonBase);
+               r1ToCommonBase += prependZeroes(rTS, p1);
+          }
+     }
+
+     string commonBaseToR2 = formatNumber(r1ToCommonBase, p2);
+
+     string result = "";
+     int i = 0;
+     while (i < commonBaseToR2.length()) {
+          if (commonBaseToR2[i] == '.') {
+               result += '.';
+               i++;
+               continue;
+          } else {
+               result += stringToRigit(commonBaseToR2.substr(i, p2), commonBase);
+          }
+          i += p2;
+     }
+     cout << result << "\n";
+     return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a3p3
+Enter number: 2653.53
+From base: 8
+To base: 16
+5AB.AC
+#+end_example
