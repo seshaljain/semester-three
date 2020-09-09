@@ -1,0 +1,139 @@
+#+title: DS Lab Assignment 5
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 09, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}\setlength{\parindent}{0pt}
+
+* Program 1
+#+BEGIN_SRC cpp :tangle a5p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int f(int n) {
+  if (n <= 2) {
+    return 5;
+  } else {
+    return f(n / 2) + f(n - 1);
+  }
+}
+
+int main(){
+  cout << f(10) << "\n";
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a5p1
+90
+#+END_EXAMPLE
+
+** Analysis
+The given function is a recursion of the form,
+#+begin_center
+$T(n) = T(n - 1) + T(n / 2)$
+#+end_center
+
+The time complexity of the given function is $T(n) = O(2^{n})$.
+
+The space complexity of the given function is $S(n) = O(n)$.
+
+For $n = 10$, the function is called 35 times.
+
+To find values for various actual arguments, a =for= loop can be used:
+#+BEGIN_SRC cpp
+for (int i = 0; i < 10; i++) {
+  cout << "f(" << i << "): " << f(i) << "\n";
+}
+#+END_SRC
+
+*Output:*
+#+begin_example
+$ ./a5p1
+f(0): 5
+f(1): 5
+f(2): 5
+f(3): 10
+f(4): 15
+f(5): 20
+f(6): 30
+f(7): 40
+f(8): 55
+f(9): 70
+f(10): 90
+f(11): 110
+f(12): 140
+f(13): 170
+f(14): 210
+f(15): 250
+#+end_example
+
+* Program 2
+#+BEGIN_SRC cpp :tangle a5p2.cpp
+#include <bits/stdc++.h>
+using namespace std;
+using namespace std::chrono;
+
+void f(int n) {
+  if (n <= 2) {
+    return;
+  } else {
+    f(n - 1);
+    f(n - 1);
+  }
+}
+
+int main(){
+  auto start = high_resolution_clock::now();
+  f(2);
+  auto stop = high_resolution_clock::now();
+  cout << "f(2):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(4);
+  stop = high_resolution_clock::now();
+  cout << "f(4):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(6);
+  stop = high_resolution_clock::now();
+  cout << "f(4):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(6);
+  stop = high_resolution_clock::now();
+  cout << "f(6):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(10);
+  stop = high_resolution_clock::now();
+  cout << "f(10):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(20);
+  stop = high_resolution_clock::now();
+  cout << "f(20):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(50);
+  stop = high_resolution_clock::now();
+  cout << "f(50):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+}
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+$ ./a5p2
+f(2):	0 microseconds
+f(4):	0 microseconds
+f(4):	0 microseconds
+f(6):	0 microseconds
+f(10):	3 microseconds
+f(20):	2480 microseconds
+#+END_EXAMPLE
+
+** Analysis
+The given function is a recursion of the form:
+#+begin_center
+$T(n) = 2T(n - 1)$
+#+end_center
+
+The time complexity of given program is $T(n) = O(2^{n})$.
+
+The space complexity of the given function is $S(n) = O(n)$.
+
+The program did not complete execution in a reasonable about of time for f(50), it was terminated by force.
