@@ -1,0 +1,167 @@
+#+title: DS Lab Assignment 6
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 16, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}\setlength{\parindent}{0pt}
+
+* Program 1
+Program to implement a Linked List in a 2-dimentional array
+#+BEGIN_SRC cpp :tangle a6p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class LL
+{
+public:
+  int ll[2][10];
+  int head;
+  LL()
+  {
+    head = 0;
+    for (int i = 0; i < 10; i++)
+    {
+      ll[0][i] = 0;
+      ll[1][i] = -1;
+    }
+  }
+  bool addNode(int num)
+  {
+    if (ll[1][head] == -1)
+    {
+      ll[0][head] = num;
+      ll[1][head] = 0;
+    }
+    else
+    {
+      if (head == 9)
+      {
+        cout << "List is full"
+             << "\n";
+        return false;
+      }
+      int index = 0;
+      while (ll[1][index] != -1)
+      {
+        index++;
+      }
+      ll[1][head] = index;
+      head = index;
+      ll[0][head] = num;
+      ll[1][head] = 0;
+    }
+    return true;
+  }
+  void print()
+  {
+    if (ll[1][head] == -1)
+    {
+      cout << "List is empty"
+           << "\n";
+    }
+    else
+    {
+      int index = 0;
+      while (ll[1][index] != 0)
+      {
+        cout << ll[0][index]
+             << "-->";
+        index = ll[1][index];
+      }
+      cout << ll[0][index]
+           << "-->"
+           << "\n";
+    }
+  }
+};
+
+int main()
+{
+  LL linkedList;
+  char opt = 'y';
+  cout << "Array-based LL"
+       << "\n";
+  do
+  {
+    int num;
+    cout << "Enter element: ";
+    cin >> num;
+    if (linkedList.addNode(num))
+    {
+      linkedList.print();
+    }
+    cout << "Continue [Y/n]: ";
+    cin >> opt;
+  } while (opt != 'n');
+}
+
+#+END_SRC
+
+** Output
+#+BEGIN_EXAMPLE
+Array-based LL
+Enter element: 1
+1-->
+Continue [Y/n]: y
+Enter element: 2
+1-->2-->
+Continue [Y/n]: y
+Enter element: 3
+1-->2-->3-->
+Continue [Y/n]: y
+Enter element: 4
+1-->2-->3-->4-->
+Continue [Y/n]: y
+Enter element: 5
+1-->2-->3-->4-->5-->
+Continue [Y/n]: y
+Enter element: 6
+1-->2-->3-->4-->5-->6-->
+Continue [Y/n]: y
+Enter element: 7
+1-->2-->3-->4-->5-->6-->7-->
+Continue [Y/n]: y
+Enter element: 8
+1-->2-->3-->4-->5-->6-->7-->8-->
+Continue [Y/n]: y
+Enter element: 9
+1-->2-->3-->4-->5-->6-->7-->8-->9-->
+Continue [Y/n]: y
+Enter element: 0
+1-->2-->3-->4-->5-->6-->7-->8-->9-->0-->
+Continue [Y/n]: y
+Enter element: 1
+List is full
+Continue [Y/n]: n
+#+END_EXAMPLE
+
+* Lab Questions
+** What will be the output of the following program?
+#+BEGIN_SRC c :tangle a6q1.c
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+  int *p;
+  p = (int *)malloc(20); /* Assume p has address of 1314 */
+  free(p);
+  printf("%u", p);
+  return 0;
+}
+#+END_SRC
+
+*Answer:* The value as well as the memory allocated to p is freed after the call to ~free~. However, the address stored in ~p~ still persists, thus the output will be =1314=.
+
+** What will be the output of the following program?
+#+BEGIN_SRC c :tangle a6q2.c
+#include<stdlib.h>
+int main()
+{
+  int *p;
+  p = (int *)malloc(20);
+  printf("%d\n", sizeof(p));
+  free(p);
+  return 0;
+}
+#+END_SRC
+
+*Answer:* Memory allocated to various datatypes is platform dependent. By convention the pointer may have a size of 4 or 8.
