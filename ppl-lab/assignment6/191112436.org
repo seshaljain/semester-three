@@ -1,0 +1,148 @@
+#+title: PPL Lab Assignment 6
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 15, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to delete all vowels from the string using call by value.
+#+BEGIN_SRC c++ :tangle a6p1.cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+string removeVowels(string s) {
+  string str = "";
+  int i = 0;
+  for (; i < s.length(); ++i) {
+    switch (s[i]) {
+    case 'a':
+    case 'e':
+    case 'i':
+    case 'o':
+    case 'u':
+    case 'A':
+    case 'E':
+    case 'I':
+    case 'O':
+    case 'U':
+      continue;
+    default:
+      str += s[i];
+    }
+  }
+  return str;
+}
+
+int main()
+{
+  string s;
+  cout << "Enter string: ";
+
+  getline(cin, s);
+
+          string str = removeVowels(s);
+          cout << str << "\n";
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a6p1
+Enter string: Hello World!
+Hll Wrld!
+#+end_example
+
+* Program 2
+Program to increment the alphabets of a string by one alphabet using call by reference.
+#+BEGIN_SRC c++ :tangle a6p2.cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+void incrementAlphabet(string &s) {
+  string str = "";
+  int i = 0;
+  for (; i < s.length(); ++i) {
+    if (isupper(s[i])) {
+      s[i] = 'A' + (s[i] - 'A' + 1) % 26;
+    } else if (islower(s[i])) {
+      s[i] = 'a' + (s[i] - 'a' + 1) % 26;
+    }
+  }
+}
+
+int main()
+{
+  string s;
+  cout << "Enter string: ";
+
+  getline(cin, s);
+
+  incrementAlphabet(s);
+  cout << s << "\n";
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a6p2
+Enter string: Hello World!
+Ifmmp Xpsme!
+#+end_example
+
+* Program 3
+Program to check string 1 is a substring of string 2.
+#+BEGIN_SRC c++ :tangle a6p3.cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int subStringSearch(string s1, string s2)
+{
+  for (int i = 0; i <= s2.length() - s1.length(); i++)
+  {
+    int j = 0;
+    while (j < s1.length()) {
+      if (s2[i + j] != s1[j])
+        break;
+      j++;
+    }
+
+    if (j == s1.length())
+      return i;
+  }
+
+  return -1;
+}
+
+int main()
+{
+  string s1, s2;
+  cout << "Enter string: ";
+  getline(cin, s2);
+  cout << "Enter search word: ";
+  cin >> s1;
+
+  int index = subStringSearch(s1, s2);
+
+  if (index == -1) {
+    cout << "Substring not found" << "\n";
+  } else {
+    cout << "Substring " << s1 << " found at index " << index << "\n";
+  }
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a6p3
+Enter string: Lorem ipsum dolor sit amet
+Enter search word: ipsum
+Substring ipsum found at index 6
+
+$ ./a6p3
+Enter string: Lorem ipsum dolor sit amet
+Enter search word: aleur
+Substring not found
+#+end_example
