@@ -164,4 +164,5 @@ int main()
 }
 #+END_SRC
 
-*Answer:* Memory allocated to various datatypes is platform dependent. By convention the pointer may have a size of 4 or 8.
+*Answer:* Memory allocated to various datatypes is platform dependent. However, the size of pointer is equal to the size on integer.
+On a 16-bit system, the size of integer is 2 bytes. Thus, the size of ~p~ here is 2 bytes.
