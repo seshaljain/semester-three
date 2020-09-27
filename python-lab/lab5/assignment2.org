@@ -1,0 +1,448 @@
+#+title: Python Lab 5
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 18, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Problem 1
+Program to check if a number is prime
+#+BEGIN_SRC python :tangle a3p1.py
+num = int(input("Enter number: "))
+i = 2;
+isPrime = True
+
+while (i * i < num):
+    if num % i == 0:
+        isPrime = False
+        break
+    i = i + 1
+
+if isPrime:
+    print(num, "is prime")
+else:
+    print(num, "is not prime")
+#+END_SRC
+
+** Output
+#+begin_example
+>>> Enter number: 20
+20 is not prime
+#+end_example
+
+* Problem 2
+Program to print even numbers between (1, 100)
+#+BEGIN_SRC python :tangle a3p2.py
+i = 1
+while(2 * i < 100):
+    print(2 * i, end=' ')
+    i = i + 2
+#+END_SRC
+
+#+RESULTS:
+
+** Output
+#+begin_example
+>>> 2 6 10 14 18 22 26 30 34 38 42 46 50 54 58 62 66 70 74 78 82 86 90 94 98
+#+end_example
+
+* Problem 3
+Program to print prime numbers under 100
+#+BEGIN_SRC python :tangle a3p3.py
+num = 100
+prime_numbers = [True for number in range(num + 1)]
+
+i = 2
+
+while (i * i <= num):
+    for i in range(i * 2, num + 1, i):
+        prime_numbers[i] = False
+    i = i + 1
+
+prime_numbers[0] = False
+prime_numbers[1] = False
+
+for i in range(num + 1):
+    if prime_numbers[i]:
+        print(i, end=' ')
+#+END_SRC
+
+** Output
+#+begin_example
+>>> 2 3 5 7 9 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49 51 53 55 57 59 61 63 65 67 69 71 73 75 77 79 81 83 85 87 89 91 93 95 97 99
+#+end_example
+
+* Problem 4
+Programs to print various patterns
+** Pattern 1
+#+BEGIN_SRC python
+p = 1
+i = 0
+while i < 3:
+    j = 0
+    while j < 2 * i + 1:
+        print(p, end=' ')
+        p += 1
+        j += 1
+    i += 1
+    print()
+#+END_SRC
+
+#+RESULTS:
+
+*** Output
+#+begin_example
+>>> 1
+2 3 4
+5 6 7 8 9
+#+end_example
+
+** Program 2
+#+BEGIN_SRC python
+p = 1
+i = 0
+
+while i < 4:
+    j = 0
+    while j <= i:
+        print(p, end=' ')
+        j += 1
+        p += 1
+    print()
+    i += 1
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+2 3
+4 5 6
+7 8 9 10
+#+end_example
+
+** Program 3
+#+BEGIN_SRC python
+p = 0
+i = 0
+
+while i < 4:
+    p = p + i + 1
+    j = p
+    for k in range(i + 1):
+        print(j, end=' ')
+        j -= 1
+    i += 1
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+3 2
+6 5 4
+10 9 8 7
+#+end_example
+
+** Program 4
+#+BEGIN_SRC python
+for i in range(1, 6):
+    for j in range(1, i):
+        print(j, end=' ')
+    for j in range(i, 0, -1):
+        print(j, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+1 2 1
+1 2 3 2 1
+1 2 3 4 3 2 1
+1 2 3 4 5 4 3 2 1
+#+end_example
+
+** Program 5
+#+BEGIN_SRC python
+for i in range(5, 0, -1):
+    for j in range(i, 0, -1):
+        print(j, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 5 4 3 2 1
+4 3 2 1
+3 2 1
+2 1
+1
+#+end_example
+
+** Program 6
+#+BEGIN_SRC python
+for i in range(5, 0, -1):
+    for j in range(1, i + 1):
+        print(j, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1 2 3 4 5
+1 2 3 4
+1 2 3
+1 2
+1
+#+end_example
+
+** Program 7
+#+BEGIN_SRC python
+for i in range(1, 6):
+    for j in range(i):
+        print(i, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+2 2
+3 3 3
+4 4 4 4
+5 5 5 5 5
+#+end_example
+
+** Program 8
+#+BEGIN_SRC python
+for i in range(1, 6):
+    for j in range(i):
+        print(j + 1, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+1 2
+1 2 3
+1 2 3 4
+1 2 3 4 5
+#+end_example
+
+** Program 9
+#+BEGIN_SRC python
+for i in range(5):
+    for j in range(5 - i):
+        print(i + 1, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1 1 1 1 1
+2 2 2 2
+3 3 3
+4 4
+5
+#+end_example
+
+** Program 10
+#+BEGIN_SRC python
+for i in range(5, 0, -1):
+    for j in range(i):
+        print(i, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 5 5 5 5 5
+4 4 4 4
+3 3 3
+2 2
+1
+#+end_example
+
+** Program 11
+#+BEGIN_SRC python
+for i in range(1, 6):
+    for j in range(i, 0, -1):
+        print(j, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+2 1
+3 2 1
+4 3 2 1
+5 4 3 2 1
+#+end_example
+
+** Program 12
+#+BEGIN_SRC python
+i = 0
+p = 1
+while (i < 8):
+    j = p
+    while j >= 1:
+        print(j, end=' ')
+        j = j // 2
+    print()
+    p *= 2
+    i += 1
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+2 1
+4 2 1
+8 4 2 1
+16 8 4 2 1
+32 16 8 4 2 1
+64 32 16 8 4 2 1
+128 64 32 16 8 4 2 1
+#+end_example
+
+** Program 13
+#+BEGIN_SRC python
+for i in range(1, 5 + 1):
+    for j in range(5):
+        if j < 5 - i:
+            print(' ', end=' ')
+        else:
+            print(5 - j, end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>>         1
+      2 1
+    3 2 1
+  4 3 2 1
+5 4 3 2 1
+#+end_example
+
+** Program 14
+#+BEGIN_SRC python
+for i in range(5):
+    j = 0
+    while (j < i):
+        print(2**j, end=' ')
+        j += 1
+    while (j >= 0):
+        print(2**j, end=' ')
+        j -= 1
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> 1
+1 2 1
+1 2 4 2 1
+1 2 4 8 4 2 1
+1 2 4 8 16 8 4 2 1
+#+end_example
+
+** Program 15
+#+BEGIN_SRC python
+for i in range(1, 5 + 1):
+    for j in range(i):
+        print('*', end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>>         *
+      * *
+    * * *
+  * * * *
+* * * * *
+#+end_example
+
+** Program 16
+#+BEGIN_SRC python
+for i in range(5):
+    for j in range(5, i, -1):
+        print('*', end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> * * * * *
+* * * *
+* * *
+* *
+*
+#+end_example
+
+** Program 17
+#+BEGIN_SRC python
+for i in range(1, 2 * 5 - 1 + 1):
+    if (i <= 5):
+        for j in range(i):
+            print('*', end=' ')
+    else:
+        for j in range(5 - (i - 5)):
+            print('*', end=' ')
+    print()
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> *
+* *
+* * *
+* * * *
+* * * * *
+* * * *
+* * *
+* *
+*
+#+end_example
+
+** Program 18
+#+BEGIN_SRC python
+c = ord('A')
+p = 0
+
+for i in range(1, 5 + 1):
+    for j in range(i):
+        print(chr(c + p), end=' ')
+        p += 1
+    print()
+#+END_SRC
+
+#+RESULTS:
+
+*** Output
+#+begin_example
+>>> A
+B C
+D E F
+G H I J
+K L M N O
+#+end_example
+
+** Program 19
+#+BEGIN_SRC python
+manit = 'MANIT'
+
+for i in range(len(manit)):
+    print(manit[:i + 1])
+#+END_SRC
+
+*** Output
+#+begin_example
+>>> M
+MA
+MAN
+MANI
+MANIT
+#+end_example
