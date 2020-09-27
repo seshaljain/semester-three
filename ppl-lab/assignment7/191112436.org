@@ -1,0 +1,220 @@
+#+title: PPL Lab Assignment 7
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 22, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Program 1
+Program to calculate volume of cube, sphere and cone using function overloading
+#+BEGIN_SRC c++ :tangle a7p1.cpp
+#include <iostream>
+using namespace std;
+
+// Volume of Sphere
+double calcVolume(double r) {
+  return 4 * 3.14 * r * r * r / 3;
+}
+
+// Volume of Cone
+double calcVolume(double r, double h) {
+  return 3.14 * r * r * h / 3;
+}
+
+// Volume of Cuboid
+double calcVolume(double l, double b, double h) {
+  return l * b * h;
+}
+
+int main()
+{
+  int opt = 0;
+  cout << "Volume Calculator" << "\n";
+  cout << "1. Sphere" << "\n";
+  cout << "2. Cone" << "\n";
+  cout << "3. Cuboid" << "\n";
+  cout << "Enter choice (1/2/3): ";
+  cin >> opt;
+
+  switch (opt) {
+  case 1: {
+    double r;
+    cout << "Enter r: ";
+    cin >> r;
+    cout << calcVolume(r) << "\n";
+    break;
+  }
+  case 2: {
+    double r, h;
+    cout << "Enter r h: ";
+    cin >> r >> h;
+    cout << calcVolume(r, h) << "\n";
+    break;
+  }
+  case 3: {
+    double l, b, h;
+    cout << "Enter l b h: ";
+    cin >> l >> b >> h;
+    cout << calcVolume(l, b, h) << "\n";
+    break;
+  }
+  default:
+    break;
+  }
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a7p1
+Volume Calculator
+1. Sphere
+2. Cone
+3. Cuboid
+Enter choice (1/2/3): 1
+Enter r: 5
+523.333
+
+$ ./a7p1
+Volume Calculator
+1. Sphere
+2. Cone
+3. Cuboid
+Enter choice (1/2/3): 2
+Enter r h: 3 5
+47.1
+
+$ ./a7p1
+Volume Calculator
+1. Sphere
+2. Cone
+3. Cuboid
+Enter choice (1/2/3): 3
+Enter l b h: 1 2 3
+6
+#+end_example
+
+* Program 2
+Program to compute the area of circle, use a default value of pi =
+3.141 in case it is omitted
+#+BEGIN_SRC cpp :tangle a7p2.cpp
+#include <iostream>
+using namespace std;
+
+double area(double r, double pi = 3.14)
+{
+  return pi * r * r;
+}
+
+int main()
+{
+  double r, p;
+  cout << "Enter radius: ";
+  cin >> r;
+  cout << "Enter pi (0 for default): ";
+  cin >> p;
+  if (p == 0)
+    {
+      double ans = area(r);
+      cout << ans << "\n";
+    }
+  else
+    {
+      double ans = area(r, p);
+      cout << ans << "\n";
+    }
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a7p2
+Enter radius: 5
+Enter pi (0 for default): 0
+78.5
+
+$ ./a7p2
+Enter radius: 5
+Enter pi (0 for default): 3.141
+78.525
+#+end_example
+
+* Program 3
+Program to sort the alphabets of given string using call by reference
+#+BEGIN_SRC cpp :tangle a7p3.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+void sortString(string &s)
+{
+  int N = s.length();
+  for (int i = 0; i < N; ++i)
+    {
+      for (int j = i; j < N; ++j)
+        {
+          if (s[i] > s[j])
+            {
+              char temp = s[i];
+              s[i] = s[j];
+              s[j] = temp;
+            }
+        }
+    }
+}
+
+int main()
+{
+  string s = "qwertyuiop";
+  cout << "Before: " << s << "\n";
+  sortString(s);
+  cout << "After: " << s << "\n";
+  return 0;
+}
+
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a7p3
+Before: qwertyuiop
+After: eiopqrtuwy
+#+end_example
+
+* Program 4
+Program to calculate HCF(M,N) where M>N using "Euclid's division method"
+#+BEGIN_SRC cpp :tangle a7p4.cpp
+#include <iostream>
+using namespace std;
+
+int hcf(int m, int n)
+{
+  if (m < n)
+    {
+      m = m + n;
+      n = m - n;
+      m = m - n;
+    }
+  if (n == 0)
+    {
+      return m;
+    }
+  else return hcf(n, m - n);
+}
+
+int main()
+{
+  int m, n;
+  cout << "Enter m n: ";
+  cin >> m >> n;
+  cout << hcf(m, n) << "\n";
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a7p4
+Enter m n: 18 42
+6
+#+end_example
