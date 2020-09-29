@@ -1,0 +1,224 @@
+#+title: PPL Lab Assignment 8
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: September 29, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+1. WAP in C/C++ to insert 10 elements in a linked list.
+2. WAP in C/C++ to add a node to ((n/2)+2)th position in an existing linked list.
+3. WAP in C/C++ to remove a node 3rd to the last from an existing linked list.
+4. WAP in C/C++ to detect duplicate node(s) if exists in a linked list.
+5. WAP in C/C++ to sort the linked list after implementation of question 2.
+
+#+BEGIN_SRC cpp :tangle a8p1.cpp
+#include <iostream>
+using namespace std;
+
+class Node
+{
+public:
+  int key;
+  int data;
+  Node* next;
+
+  Node()
+  {
+    key = 0;
+    data = 0;
+    next = nullptr;
+  }
+  Node(int k, int d)
+  {
+    key = k;
+    data = d;
+    next = nullptr;
+  }
+};
+
+class SLL
+{
+  Node* head;
+public:
+  SLL()
+  {
+    head = nullptr;
+  }
+  bool checkNode(int);
+  void appendNode(Node*);
+  void insertAtIndex(int, Node*);
+  void deleteNode(int);
+  void findDuplicate(int);
+  void display();
+  void sort();
+};
+
+void SLL::appendNode(Node* n)
+{
+  if (head == nullptr)
+    {
+      head = n;
+    }
+  else
+    {
+      if (checkNode(n->key))
+        {
+          cout << "Key already exists. Abort." << "\n";
+        }
+      else
+        {
+          Node* temp = head;
+          while (temp->next != nullptr)
+            {
+              temp = temp->next;
+            }
+          temp->next = n;
+        }
+    }
+}
+
+void SLL::insertAtIndex(int i, Node* n)
+{
+  int j = 0;
+  Node* temp = head;
+  while (j < i - 1)
+    {
+      temp = temp->next;
+      j++;
+    }
+  Node* ptr = temp->next;
+  temp->next = n;
+  n->next = ptr;
+}
+
+void SLL::deleteNode(int k)
+{
+  Node* prevNode = head;
+  Node* nextNode = head->next;
+  while (nextNode != nullptr && nextNode->key != k) {
+    prevNode = prevNode->next;
+    nextNode = nextNode->next;
+  }
+  prevNode->next = nextNode->next;
+  delete nextNode;
+}
+
+void SLL::findDuplicate(int d)
+{
+  Node* temp = head;
+  while (temp != nullptr)
+    {
+      if (temp->data == d)
+        {
+          cout << "Duplicate found at " << temp-> key << "\n";
+        }
+      temp = temp->next;
+    }
+}
+
+void SLL::sort()
+{
+  Node* temp = head;
+
+  while (temp != nullptr)
+    {
+      Node* prevNode = head;
+      Node * nextNode = head->next;
+      while (nextNode != nullptr)
+        {
+          if (nextNode->data <= prevNode->data)
+            {
+              int t = nextNode->data;
+              nextNode->data = prevNode->data;
+              prevNode->data = t;
+              t = nextNode->key;
+              nextNode->key = prevNode->key;
+              prevNode->key = t;
+            }
+          prevNode = prevNode->next;
+          nextNode = nextNode->next;
+        }
+      temp = temp->next;
+    }
+}
+
+void SLL::display()
+{
+  Node* temp = head;
+  while (temp != nullptr)
+    {
+      cout << "(" << temp->key << "," << temp->data << ")" << "->";
+      temp = temp->next;
+    }
+  cout << "\n";
+}
+
+bool SLL::checkNode(int k)
+{
+  Node* temp = head;
+  while (temp != nullptr && temp->key != k)
+    {
+      temp = temp->next;
+    }
+  return !(temp == nullptr);
+}
+
+int main()
+{
+  int k = 0, d = 0;
+  SLL ll;
+  Node* n = nullptr;
+  cout << "Enter 10 values of linked list:" << "\n";
+  for (int i = 0; i < 10; i++)
+    {
+      cin >> k >> d;
+      n = new Node(k, d);
+      ll.appendNode(n);
+    }
+  cout << "State of LL is:" << "\n";
+  ll.display();
+  cout << "Enter value for ((n/2) + 2) = 7:" << "\n";
+  cin >> d;
+  n = new Node(7, d);
+  ll.insertAtIndex(7, n);
+  cout << "State of LL is:" << "\n";
+  ll.display();
+  cout << "Deleting 3rd from last element. State of LL is:" << "\n";
+  ll.deleteNode(8);
+  ll.display();
+  cout << "Enter duplicate value to search for: ";
+  cin >> d;
+  ll.findDuplicate(d);
+  cout << "Sorted LL:";
+  ll.sort();
+  ll.display();
+  return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a8p1
+Enter 10 values of linked list:
+2 3
+3 4
+5 6
+6 7
+9 10
+0 6
+8 2
+10 2
+11 0
+1 0
+State of LL is:
+(2,3)->(3,4)->(5,6)->(6,7)->(9,10)->(0,6)->(8,2)->(10,2)->(11,0)->(1,0)->
+Enter value for ((n/2) + 2) = 7:
+19
+State of LL is:
+(2,3)->(3,4)->(5,6)->(6,7)->(9,10)->(0,6)->(8,2)->(7,19)->(10,2)->(11,0)->(1,0)->
+Deleting 3rd from last element. State of LL is:
+(2,3)->(3,4)->(5,6)->(6,7)->(9,10)->(0,6)->(8,2)->(10,2)->(11,0)->(1,0)->
+Enter duplicate value to search for: 2
+Duplicate found at 8
+Duplicate found at 10
+Sorted LL:(11,0)->(1,0)->(8,2)->(10,2)->(2,3)->(3,4)->(5,6)->(0,6)->(6,7)->(9,10)->
+#+end_example
