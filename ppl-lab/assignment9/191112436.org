@@ -1,0 +1,301 @@
+#+title: PPL Lab Assignment 9
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: October 13, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+1. WAP in C++ to print the total surface area and volume of a cylinder by creating a class named =Cylinder= with a function to print the area and volume
+2. WAP in C++ to print the volume of cones and cuboid by creating a class named "volume".
+   Height, radius and sides are passed as parameter to its constructor
+3. WAP in C++ by creating an =Employee= class having the following functions and print the final salary.
+   - =AddInfo()= which takes the salary, number of hours of work per day of employee as parameters
+   - =AddSal()= which adds $10 to the salary of the employee if it is less than $500.
+   - =AddWork()= which adds $5 to the salary of the employee if the number of hours of work per day is more than 6 hours.
+4. WAP in C++ to print the roll number and average marks of 5 students in three subjects (each out of 100). The marks are entered by the user and the roll numbers are automatically assigned.
+
+* Cylinder
+#+BEGIN_SRC cpp :tangle a9p1.cpp
+#include <iostream>
+#define PI 3.1415
+
+using namespace std;
+
+class Cylinder
+{
+    double radius;
+    double height;
+    public:
+        Cylinder()
+        {
+            radius = 0;
+            height = 0;
+        }
+        Cylinder(double r, double h)
+        {
+            radius = r;
+            height = h;
+        }
+        double getVolume()
+        {
+            return PI * radius * radius * height;
+        }
+        double getSurfaceArea()
+        {
+            return 2 * PI * radius * (height + radius);
+        }
+};
+
+int main()
+{
+    double r, h;
+    cout << "Enter radius and height: ";
+    cin >> r >> h;
+    Cylinder c(r, h);
+    cout << "Surface area: " << c.getSurfaceArea() << "\n";
+    cout << "Volume: " << c.getVolume() << "\n";
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a9p1
+Enter radius and height: 5 10
+Surface area: 471.225
+Volume: 785.375
+#+end_example
+
+* Cone and Cuboid
+#+BEGIN_SRC cpp :tangle a9p2.cpp
+#include <iostream>
+#define PI 3.1415
+
+using namespace std;
+
+class Volume {
+    int radius;
+    int height;
+    int length;
+    int width;
+    int volume;
+    public:
+        Volume()
+        {
+            radius = 0;
+            height = 0;
+            length = 0;
+            width = 0;
+            volume = 0;
+        }
+        Volume(int h, int w, int l)
+        {
+            height = h;
+            width = w;
+            length = l;
+            radius = 0;
+            volume = h * w * l;
+        }
+        Volume(int r, int h)
+        {
+            height = h;
+            radius = r;
+            width = 0;
+            length = 0;
+            volume = PI * r * r * h / 3;
+        }
+        void getVolume()
+        {
+            cout << "Volume: " << volume << "\n";
+        }
+};
+
+int main() {
+    int choice = -1;
+    cout << "Volume Calculator" << "\n";
+    cout << "Enter choice 1 = Cone, 2 = Cuboid: ";
+    cin >> choice;
+
+    switch (choice)
+    {
+        case 1:
+        {
+            int r, h;
+            cout << "Enter r h: ";
+            cin >> r >> h;
+            Volume cone(r, h);
+            cone.getVolume();
+        }
+        break;
+        case 2:
+        {
+            int l, w, h;
+            cout << "Enter l w h: ";
+            cin >> l >> w >> h;
+            Volume cuboid(h, w, l);
+            cuboid.getVolume();
+        }
+        break;
+        default:
+            cout << "Wrong choice!" << "\n";
+    }
+
+    return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a9p2
+Volume Calculator
+Enter choice 1 = Cone, 2 = Cuboid: 3
+Wrong choice!
+$ ./a9p2
+Volume Calculator
+Enter choice 1 = Cone, 2 = Cuboid: 1
+Enter r h: 5 10
+Volume: 261
+$ ./a9p2
+Volume Calculator
+Enter choice 1 = Cone, 2 = Cuboid: 2
+Enter l w h: 5 10 15
+Volume: 75
+#+end_example
+
+* Employee
+#+BEGIN_SRC cpp :tangle a9p3.cpp
+#include <iostream>
+using namespace std;
+
+class Employee {
+    int salary;
+    int hoursPerDay;
+    public:
+        Employee()
+        {
+            salary = 0;
+            hoursPerDay = 0;
+        }
+        void addInfo(int s, int h)
+        {
+            salary = s;
+            hoursPerDay = h;
+        }
+        void addSal()
+        {
+            if (salary < 500) {
+                salary += 10;
+                cout << "Salary incremented!" << "\n";
+            }
+        }
+        void addWork()
+        {
+            if (hoursPerDay > 6) {
+                salary += 5;
+                cout << "Bonus granted!" << "\n";
+            }
+        }
+        void display()
+        {
+            cout << "Salary: " << salary << "\n";
+            cout << "Hours per day: " << hoursPerDay << "\n";
+        }
+};
+
+int main() {
+    int s, h;
+    cout << "Employee Portal" << "\n";
+    cout << "Register new employee" << "\n";
+    cout << "Enter salary: ";
+    cin >> s;
+    cout << "Enter hours per day: ";
+    cin >> h;
+    Employee E;
+    E.addInfo(s, h);
+    E.addSal();
+    E.addWork();
+    E.display();
+    return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a9p3
+Employee Portal
+Register new employee
+Enter salary: 500
+Enter hours per day: 8
+Bonus granted!
+Salary: 505
+$ ./a9p3
+Employee Portal
+Register new employee
+Enter salary: 300
+Enter hours per day: 4
+Salary incremented!
+Salary: 310
+#+end_example
+
+* Student
+#+BEGIN_SRC cpp :tangle a9p4.cpp
+#include <iostream>
+using namespace std;
+
+class Student {
+    int sub1Marks;
+    int sub2Marks;
+    int sub3Marks;
+    int rollNum;
+    public:
+    static int studentCount;
+        Student()
+        {
+            sub1Marks = 0;
+            sub2Marks = 0;
+            sub3Marks = 0;
+            rollNum = studentCount + 1;
+            studentCount++;
+        }
+        void getMarks() {
+            cout << "Enter marks of roll number " << rollNum << ": ";
+            cin >> sub1Marks >> sub2Marks >> sub3Marks;
+        }
+        void getAverage()
+        {
+            cout << "Roll number " << rollNum << ": "
+                 << (double) (sub1Marks + sub2Marks + sub3Marks) / 3 << "\n";
+        }
+};
+
+int Student::studentCount = 100;
+
+int main() {
+    Student S[5];
+    cout << "Enter marks: " << "\n";
+    for (int i = 0; i < 5; i++) {
+        S[i].getMarks();
+    }
+    cout << "Average marks are: " << "\n";
+    for (int i = 0; i < 5; i++) {
+        S[i].getAverage();
+    }
+    return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a9p4
+Enter marks:
+Enter marks of roll number 101: 49 54 48
+Enter marks of roll number 102: 53 48 56
+Enter marks of roll number 103: 49 46 54
+Enter marks of roll number 104: 28 34 43
+Enter marks of roll number 105: 59 46 54
+Average marks are:
+Roll number 101: 50.3333
+Roll number 102: 52.3333
+Roll number 103: 49.6667
+Roll number 104: 35
+Roll number 105: 53
+#+end_example
+
