@@ -1,0 +1,60 @@
+#+title: Python Lab 7
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: October 16, 2020
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+* Function to check if a number is prime
+#+BEGIN_SRC python
+def isPrime(num):
+    if num <= 1:
+        return False
+    elif num == 2:
+        return True
+    elif num == 3:
+        return True
+    else:
+        i = 2
+        while i * i < num:
+            if num % i == 0:
+                return False
+            i += 1
+            return True
+
+num = int(input('Enter number: '))
+
+if isPrime(num):
+    print(num, 'is prime')
+else:
+    print(num, 'is not prime')
+#+END_SRC
+
+** Output
+#+begin_example
+>>> Enter number: 5
+5 is prime
+>>> Enter number: 18
+18 is not prime
+#+end_example
+
+* Parameter passed to functions
+#+BEGIN_SRC python
+def func(m, n):
+    m *= 2
+    n += 100
+
+    return (m, n)
+
+m = int(input('Enter first number: '))
+n = int(input('Enter second number: '))
+
+print(func(m, n))
+#+END_SRC
+
+** Output
+#+begin_example
+>>> Enter first number: 4
+Enter second number: 2
+(8, 102)
+
+#+end_example
