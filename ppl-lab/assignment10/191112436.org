@@ -1,0 +1,199 @@
+#+title: PPL Lab Assignment 10
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: h:2 num:nil toc:nil author:nil
+#+date: <2020-10-20 Tue>
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+1. WAP in C++ to create two classes named A and B. Create another class named C which inherits from both class A and B.
+   In class A, create a function to print "A-class", likewise in class B
+   In class C create a function to print "Both-class: A and B"
+   Create an object for each class. From this object, call this function. For class C, call both functions from classes A and B as well.
+
+2. WAP in C++ to read and display information about employees and managers.
+   Emp is a class that contains emp_no, name, address and department.
+   Manager class contains all information of the Emp class and a list of employees working under a manager.
+
+3. WAP in C++ to print the factorial of a number given by user by creating a class Factorial.
+   If no number is passed by the user while creating an object of factorial class, then the number should be initialized to 0 using constructor.
+
+* Program 1
+#+BEGIN_SRC cpp :tangle a10p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class A {
+    public:
+        void print() {
+            cout << "Class A" << "\n";
+        }
+};
+
+class B {
+    public:
+        void print() {
+            cout << "Class B" << "\n";
+        }
+};
+
+class C: public B, public A {
+    public:
+        void print() {
+            cout << "Class A and Class B" << "\n";
+        }
+};
+
+int main()
+{
+    C obj;
+    obj.print();
+    obj.A::print();
+    obj.B::print();
+    return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a10p1
+Class A and Class B
+Class A
+Class B
+#+end_example
+
+* Program 2
+#+BEGIN_SRC cpp :tangle a10p2.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Employee {
+    protected:
+        int empNo;
+        string name;
+        string address;
+        string department;
+    public:
+        Employee() {
+            empNo = 0;
+            name = "";
+            address = "";
+            department = "";
+        }
+
+        Employee(int e, string n, string addr, string dept) {
+            empNo = e;
+            name = n;
+            address = addr;
+            department = dept;
+        }
+
+        void display() {
+            cout << "[Employee Information]" << "\n";
+            cout << "Employee Number: " << empNo << "\n";
+            cout << "Name: " << name << "\n";
+            cout << "Address: " << address << "\n";
+            cout << "Department: " << department << "\n";
+        }
+};
+
+class Manager: public Employee {
+    private:
+        Employee sub;
+    public:
+        Manager(int e, string n, string addr, string dept, Employee E) {
+            empNo = e;
+            name = n;
+            address = addr;
+            department = dept;
+            sub = E;
+        }
+
+        void display() {
+            cout << "[Manager Information]" << "\n";
+            cout << "Employee Number: " << empNo << "\n";
+            cout << "Name: " << name << "\n";
+            cout << "Address: " << address << "\n";
+            cout << "Department: " << department << "\n";
+            cout << "Subordinate Details: " << "\n";
+            sub.display();
+        }
+};
+
+int main() {
+    Employee E(1, "Kartik", "Bhopal", "Assembly");
+    Manager M(2, "Harish", "Bhopal", "Production", E);
+    E.display();
+    cout << "\n";
+    M.display();
+    return 0;
+}
+#+END_SRC
+** Output
+#+begin_example
+$ ./a10p2
+[Employee Information]
+Employee Number: 1
+Name: Kartik
+Address: Bhopal
+Department: Assembly
+
+[Manager Information]
+Employee Number: 2
+Name: Harish
+Address: Bhopal
+Department: Production
+Subordinate Details:
+[Employee Information]
+Employee Number: 1
+Name: Kartik
+Address: Bhopal
+Department: Assembly
+#+end_example
+
+* Program 3
+#+BEGIN_SRC cpp :tangle a10p3.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Factorial {
+    int num;
+    int fact;
+    public:
+        Factorial() {
+            num = 0;
+            fact = 1;
+        }
+
+        Factorial(int n) {
+            num = n;
+            fact = calc(num);
+        }
+
+        int calc(int n) {
+            if (n <= 1) {
+                return 1;
+            } else {
+                return n * calc(n - 1);
+            }
+        }
+
+        void display() {
+            cout << "Factorial of " << num << " is " << fact << "\n";
+        }
+};
+
+int main() {
+    Factorial f1;
+    Factorial f2(5);
+
+    f1.display();
+    f2.display();
+    return 0;
+}
+#+END_SRC
+
+** Output
+#+begin_example
+$ ./a10p3
+Factorial of 0 is 1
+Factorial of 5 is 120
+#+end_example
