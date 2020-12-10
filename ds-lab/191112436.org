@@ -1,0 +1,1354 @@
+#+title: DS Lab Assignments
+#+subtitle: Seshal Jain, Scholar Number 191112436, CSE 3
+#+options: toc:nil num:nil author:nil date:nil
+#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \usepackage[margin=0.7in]{geometry}
+
+* Assignment 1
+Date: August 18, 2020
+
+** Program 1
+To print various details of 1D ~int~ array
+#+BEGIN_SRC c :tangle a1p1.c
+#include <stdio.h>
+
+int main(void) {
+  int arr[10] = {0,1,2,3,4,5,6,7,8,9};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of int is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%d stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p1
+Size of int is 4.
+Given array is:
+0 stored at 2382292592
+1 stored at 2382292596
+2 stored at 2382292600
+3 stored at 2382292604
+4 stored at 2382292608
+5 stored at 2382292612
+6 stored at 2382292616
+7 stored at 2382292620
+8 stored at 2382292624
+9 stored at 2382292628
+#+END_EXAMPLE
+
+** Program 2
+To print various details of 1D ~float~ array
+#+BEGIN_SRC c :tangle a1p2.c
+#include <stdio.h>
+
+int main(void) {
+  float arr[10] = {0.0,1.0,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of float is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%f stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p2
+Size of float is 4.
+Given array is:
+0.000000 stored at 605464720
+1.000000 stored at 605464724
+2.000000 stored at 605464728
+3.000000 stored at 605464732
+4.000000 stored at 605464736
+5.000000 stored at 605464740
+6.000000 stored at 605464744
+7.000000 stored at 605464748
+8.000000 stored at 605464752
+9.000000 stored at 605464756
+#+END_EXAMPLE
+
+** Program 3
+To print various details of 1D ~char~ array
+#+BEGIN_SRC c :tangle a1p3.c
+#include <stdio.h>
+
+int main(void) {
+  char arr[10] = {'a','b','c','d','e','f','g','h','i','j'};
+  int N = sizeof(arr)/sizeof(arr[0]);
+
+  printf("Size of char is %lu.\n", sizeof(arr[0]));
+
+  printf("Given array is:\n");
+  for (int i = 0; i < N; ++i) {
+    printf("%c stored at %u \n", arr[i], &arr[i]);
+  }
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p3
+Size of char is 1.
+Given array is:
+a stored at 1205464894
+b stored at 1205464895
+c stored at 1205464896
+d stored at 1205464897
+e stored at 1205464898
+f stored at 1205464899
+g stored at 1205464900
+h stored at 1205464901
+i stored at 1205464902
+j stored at 1205464903
+#+END_EXAMPLE
+
+** Organisation of One Dimentional Array
+Arrays are a type of fundamental data structures used for storing similar data in an organised manner.
+
+They are allocated contiguous memory for storage.
+
+Arrays provide random access, i.e. we can access any element of the array directly using its index.
+
+The memory location of i^th element in an array is given by $\alpha + (i - 1) \times d$, where $\alpha$ is the base address, i is the index, and d is the word size.
+
+** Program 4
+2D ~int~ array
+#+BEGIN_SRC c :tangle a1p4.cpp
+#include<stdio.h>
+int main(){
+   int arr[4][4];
+
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf("%d", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%d ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 4; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p4
+Enter value for arr[0][0]:1
+Enter value for arr[0][1]:2
+Enter value for arr[0][2]:3
+Enter value for arr[0][3]:4
+Enter value for arr[1][0]:5
+Enter value for arr[1][1]:6
+Enter value for arr[1][2]:7
+Enter value for arr[1][3]:8
+Enter value for arr[2][0]:9
+Enter value for arr[2][1]:0
+Enter value for arr[2][2]:1
+Enter value for arr[2][3]:2
+Enter value for arr[3][0]:5
+Enter value for arr[3][1]:4
+Enter value for arr[3][2]:3
+Enter value for arr[3][3]:6
+Given array is:
+1 2 3 4
+5 6 7 8
+9 0 1 2
+5 4 3 6
+
+Memory locations are:
+1171643584 1171643588 1171643592 1171643596
+1171643600 1171643604 1171643608 1171643612
+1171643616 1171643620 1171643624 1171643628
+1171643632 1171643636 1171643640 1171643644
+#+END_EXAMPLE
+
+** Program 5
+2D ~float~ array
+#+BEGIN_SRC c :tangle a1p5.cpp
+#include<stdio.h>
+int main(){
+   float arr[5][4];
+
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf("%f", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%f ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p5
+Enter value for arr[0][0]:1
+Enter value for arr[0][1]:2
+Enter value for arr[0][2]:3
+Enter value for arr[0][3]:4
+Enter value for arr[1][0]:5
+Enter value for arr[1][1]:6
+Enter value for arr[1][2]:5
+Enter value for arr[1][3]:4
+Enter value for arr[2][0]:7
+Enter value for arr[2][1]:9
+Enter value for arr[2][2]:7
+Enter value for arr[2][3]:1
+Enter value for arr[3][0]:5
+Enter value for arr[3][1]:3
+Enter value for arr[3][2]:9
+Enter value for arr[3][3]:6
+Enter value for arr[4][0]:3
+Enter value for arr[4][1]:1
+Enter value for arr[4][2]:3
+Enter value for arr[4][3]:5
+Given array is:
+1.000000 2.000000 3.000000 4.000000
+5.000000 6.000000 5.000000 4.000000
+7.000000 9.000000 7.000000 1.000000
+5.000000 3.000000 9.000000 6.000000
+3.000000 1.000000 3.000000 5.000000
+
+Memory locations are:
+3736833072 3736833076 3736833080 3736833084
+3736833088 3736833092 3736833096 3736833100
+3736833104 3736833108 3736833112 3736833116
+3736833120 3736833124 3736833128 3736833132
+3736833136 3736833140 3736833144 3736833148
+#+END_EXAMPLE
+
+** Program 6
+2D ~char~ array
+#+BEGIN_SRC c :tangle a1p6.cpp
+#include<stdio.h>
+int main(){
+   char arr[5][4];
+
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("Enter value for arr[%d][%d]:", i, j);
+         scanf(" %c", &arr[i][j]);
+      }
+   }
+
+   printf("Given array is:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%c ", arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+
+   printf("\nMemory locations are:\n");
+   for(int i = 0; i < 5; i++) {
+      for(int j = 0; j < 4; j++) {
+         printf("%u ", &arr[i][j]);
+         if(j == 3){
+            printf("\n");
+         }
+      }
+   }
+   return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a1p6
+Enter value for arr[0][0]:a
+Enter value for arr[0][1]:b
+Enter value for arr[0][2]:c
+Enter value for arr[0][3]:d
+Enter value for arr[1][0]:e
+Enter value for arr[1][1]:f
+Enter value for arr[1][2]:g
+Enter value for arr[1][3]:h
+Enter value for arr[2][0]:j
+Enter value for arr[2][1]:k
+Enter value for arr[2][2]:l
+Enter value for arr[2][3]:m
+Enter value for arr[3][0]:n
+Enter value for arr[3][1]:o
+Enter value for arr[3][2]:p
+Enter value for arr[3][3]:q
+Enter value for arr[4][0]:r
+Enter value for arr[4][1]:s
+Enter value for arr[4][2]:t
+Enter value for arr[4][3]:u
+Given array is:
+a b c d
+e f g h
+j k l m
+n o p q
+r s t u
+
+Memory locations are:
+460672048 460672049 460672050 460672051
+460672052 460672053 460672054 460672055
+460672056 460672057 460672058 460672059
+460672060 460672061 460672062 460672063
+460672064 460672065 460672066 460672067
+#+END_EXAMPLE
+
+Column-major order is used in *FORTRAN, Julia* etc
+
+* Assignment 2
+Date: August 18, 2020
+
+** Lower Triangular Matrix
+#+BEGIN_SRC c :tangle a2p1.c
+#include<stdio.h>
+
+#define SIZE 4
+
+int get1DPos(int i, int j) {
+  return i * (i + 1) / 2 + j;
+}
+
+int main(){
+  int twoDArr[SIZE][SIZE] = {9,0,0,0,
+                             1,2,0,0,
+                             5,6,7,0,
+                             9,8,7,6};
+
+  int arr[SIZE * (SIZE + 1) / 2];
+
+  for (int i = 0; i < SIZE; i++) {
+    for (int j = 0; j < SIZE; j++) {
+      printf("%d ", twoDArr[i][j]);
+    }
+    printf("\n");
+  }
+
+  for (int i = 0; i < SIZE; i++) {
+    for (int j = 0; j < SIZE; j++) {
+      arr[get1DPos(i, j)] = twoDArr[i][j];
+    }
+  }
+
+  printf("Given array is:   ");
+
+  for (int i = 0; i < SIZE * (SIZE + 1) / 2; i++) {
+    printf("%d ", arr[i]);
+  }
+
+  int m = 0, n = 0, value = 0;
+  printf("\nEnter i j: ");
+  scanf("%d %d", &m, &n);
+
+  printf("Enter new value: ");
+  scanf("%d", &value);
+
+  arr[get1DPos(m, n)] = value;
+
+  printf("Updated array is: ");
+  for (int i = 0; i < SIZE * (SIZE + 1) / 2; i++) {
+    printf("%d ", arr[i]);
+  }
+
+  printf("\n");
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a2p1
+9 0 0 0
+1 2 0 0
+5 6 7 0
+9 8 7 6
+Given array is:   9 1 2 5 6 7 9 8 7 6
+Enter i j: 1 1
+Enter new value: 5
+Updated array is: 9 1 5 5 6 7 9 8 7 6
+#+END_EXAMPLE
+
+** Upper Triangular Matrix
+#+BEGIN_SRC c :tangle a2p2.c
+#include<stdio.h>
+
+#define SIZE 4
+
+int get1DPos(int i, int j) {
+  return (SIZE * i) + j - (i * (i + 1)) / 2;
+}
+
+int main(){
+  int twoDArr[SIZE][SIZE] = {1,2,3,4,
+                             0,3,4,2,
+                             0,0,6,9,
+                             0,0,0,1};
+
+  int arr[SIZE*(SIZE + 1) / 2];
+
+  for (int i = 0; i < SIZE; i++) {
+    for (int j = 0; j < SIZE; j++) {
+      printf("%d ", twoDArr[i][j]);
+    }
+    printf("\n");
+  }
+
+  for (int i = 0; i < SIZE; i++) {
+    for (int j = i; j < SIZE; j++) {
+      arr[get1DPos(i, j)] = twoDArr[i][j];
+    }
+  }
+
+  printf("Given array is:   ");
+
+  for (int i = 0; i < SIZE * (SIZE + 1) / 2; i++) {
+    printf("%d ", arr[i]);
+  }
+
+  int m = 0, n = 0, value = 0;
+  printf("\nEnter i j: ");
+  scanf("%d %d", &m, &n);
+
+  printf("Enter new value: ");
+  scanf("%d", &value);
+
+  arr[get1DPos(m, n)] = value;
+
+  printf("Updated array is: ");
+  for (int i = 0; i < SIZE * (SIZE + 1) / 2; i++) {
+    printf("%d ", arr[i]);
+  }
+
+  printf("\n");
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a2p2
+1 2 3 4
+0 3 4 2
+0 0 6 9
+0 0 0 1
+Given array is:   1 2 3 4 3 4 2 6 9 1
+Enter i j: 2 2
+Enter new value: 7
+Updated array is: 1 2 3 4 3 4 2 7 9 1
+#+END_EXAMPLE
+
+** Tridiagonal Matrix
+#+BEGIN_SRC c :tangle a2p3.c
+#include<stdio.h>
+
+#define SIZE 4
+
+int get1DPos(int i, int j) {
+  return (i - 1) * 3 + (j - i + 2) + 1;
+}
+
+int main(){
+  int twoDArr[SIZE][SIZE] = {1,7,0,0,
+                             4,3,2,0,
+                             0,2,6,9,
+                             0,0,2,1};
+
+  int arr[SIZE * 3 - 2];
+
+  for (int i = 0; i < SIZE; i++) {
+    for (int j = 0; j < SIZE; j++) {
+      printf("%d ", twoDArr[i][j]);
+    }
+    printf("\n");
+  }
+
+  for (int i = 0, j = 0; i < SIZE; i++) {
+    if (i == 0) {
+      arr[j++] = twoDArr[i][i];
+      arr[j++] = twoDArr[i][i + 1];
+    } else if (i == SIZE - 1) {
+      arr[j++] = twoDArr[i][i - 1];
+      arr[j++] = twoDArr[i][i];
+    } else {
+      arr[j++] = twoDArr[i][i - 1];
+      arr[j++] = twoDArr[i][i];
+      arr[j++] = twoDArr[i][i + 1];
+    }
+  }
+
+  printf("Given array is:   ");
+  for (int i = 0; i < (SIZE * 3 - 2); i++) {
+    printf("%d ", arr[i]);
+  }
+
+  int m = 0, n = 0, value = 0;
+  printf("\nEnter i j: ");
+  scanf("%d %d", &m, &n);
+
+  printf("Enter new value: ");
+  scanf("%d", &value);
+
+  arr[get1DPos(m, n)] = value;
+
+  printf("Updated array is: ");
+  for (int i = 0; i < 10; i++) {
+    printf("%d ", arr[i]);
+  }
+
+  printf("\n");
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a2p3
+1 7 0 0
+4 3 2 0
+0 2 6 9
+0 0 2 1
+Given array is:   1 7 4 3 2 2 6 9 2 1
+Enter i j: 3 3
+Enter new value: 9
+Updated array is: 1 7 4 3 2 2 6 9 2 9
+#+END_EXAMPLE
+
+* Assignment 3
+Date: August 25, 2020
+
+** Sequential Search
+#+BEGIN_SRC cpp :tangle a3p1.cpp
+#include <bits/stdc++.h>
+#define SIZE 10
+
+using namespace std;
+
+int main(){
+  int arr[SIZE] = {0,1,2,34,2,24,-1,9,10,11};
+  int key = 0;
+  bool effectiveSearch = false;
+
+  cout << "Given array is: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << arr[i] << " ";
+  }
+
+  cout << "\nEnter search key: ";
+  cin >> key;
+
+  for (int i = 0; i < SIZE; i++) {
+    if (arr[i] == key) {
+      cout << "Key found at index " << i << "\n";
+      effectiveSearch = true;
+    }
+  }
+
+  if (!effectiveSearch) {
+    cout << "Key not found\n";
+  }
+
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a3p1
+Given array is: 0 1 2 34 2 24 -1 9 10 11
+Enter search key: -1
+Key found at index 6
+
+$ ./a3p1
+Given array is: 0 1 2 34 2 24 -1 9 10 11
+Enter search key: 12
+Key not found
+#+END_EXAMPLE
+
+*** Analysis of Time Complexity of Sequential Search
+This algorithm works in linear time, in that for $n$ inputs, the comparision is performed $n$ times.
+
+In the best case, the key element is stored at the initial (0) index, and thus only 1 comparision would be required.
+*Best case time complexity* is 1.
+
+In the worst case, the key element is stored at the last index, or not in the array. This would require $n$ comparisions.
+*Worst case time complexity* is $n$.
+
+Since there are $n$ elements, we can find the total number of comparisions for element in 1^st, 2^nd ... index.
+Thus, average case complexity is
+
+#+begin_center
+$\frac{1+2+3...+n}{n} = \frac{n(n+1)}{2}\cdot\frac{1}{n} = \frac{n+1}{2}$
+#+end_center
+
+** Operations on 2D Array
+
+*** Extremum Elements of 2D Array
+#+BEGIN_SRC cpp :tangle a3p2.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findExtremes(int arr[100][100]){
+  int maxElement = arr[0][0], minElement = arr[0][0];
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] > maxElement) {
+        maxElement = arr[i][j];
+      }
+      if (arr[i][j] < minElement) {
+        minElement = arr[i][j];
+      }
+    }
+  }
+
+  cout << "Maximum element is " << maxElement << "";
+  cout << "\nMinimum element is " << minElement << "\n";
+}
+
+int main()
+{
+  int arr[100][100];
+
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  findExtremes(arr);
+  return 0;
+}
+#+END_SRC
+
+**** Output
+#+begin_example
+$ ./a3p2
+Maximum element is 100
+Minimum element is 0
+#+end_example
+
+*** Second Largest Element of 2D Array
+#+BEGIN_SRC cpp :tangle a3p3.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findSecondMax(int arr[100][100]){
+  int maxElement = arr[0][0], secondMaxElement = arr[0][0];
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] > maxElement) {
+        maxElement = arr[i][j];
+      }
+    }
+  }
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] != maxElement) {
+        if (arr[i][j] > secondMaxElement)
+          secondMaxElement = arr[i][j];
+      }
+    }
+  }
+
+  cout << "Maximum element is " << maxElement << "";
+  cout << "\nSecond maximum element is " << secondMaxElement << "\n";
+}
+
+int main() {
+  int arr[100][100];
+
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  findSecondMax(arr);
+  return 0;
+}
+#+END_SRC
+
+**** Output
+#+begin_example
+$ ./a3p3
+Maximum element is 100
+Second maximum element is 99
+#+end_example
+
+*** Search in 2D Array
+#+BEGIN_SRC cpp :tangle a3p4.cpp
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void findElement(int arr[100][100], int key){
+  bool elementFound = false;
+
+  for (int i = 0; i < 100; i++) {
+    for (int j = 0; j < 100; j++) {
+      if (arr[i][j] == key) {
+        cout << "Found key at location " << i << ", " << j << "\n";
+        elementFound = true;
+      }
+    }
+  }
+
+  if (!elementFound) cout << "Key not found\n";
+}
+
+int main() {
+  int arr[100][100];
+  int key;
+  srand(time(NULL));
+
+  for (int i = 0; i < 100; ++i) {
+    for (int j = 0; j < 100; ++j) {
+      arr[i][j] = rand() % 101;
+    }
+  }
+
+  cout << "Enter key: ";
+  cin >> key;
+
+  findElement(arr, key);
+  return 0;
+}
+
+#+END_SRC
+
+**** Output
+#+begin_example
+$ ./a3p4
+Enter key: 100
+Found key at location 0, 28
+Found key at location 3, 57
+Found key at location 4, 16
+Found key at location 4, 64
+Found key at location 5, 4
+Found key at location 5, 38
+Found key at location 5, 82
+Found key at location 6, 96
+Found key at location 8, 24
+Found key at location 9, 13
+Found key at location 11, 3
+Found key at location 14, 81
+Found key at location 15, 99
+Found key at location 16, 69
+Found key at location 17, 39
+Found key at location 18, 75
+Found key at location 19, 97
+Found key at location 21, 15
+Found key at location 21, 45
+Found key at location 21, 63
+Found key at location 23, 17
+Found key at location 23, 52
+Found key at location 24, 56
+Found key at location 27, 56
+Found key at location 27, 61
+Found key at location 28, 42
+Found key at location 28, 60
+Found key at location 30, 22
+Found key at location 30, 98
+Found key at location 33, 46
+Found key at location 34, 65
+Found key at location 34, 90
+Found key at location 35, 17
+Found key at location 36, 40
+Found key at location 38, 75
+Found key at location 38, 86
+Found key at location 42, 90
+Found key at location 43, 80
+#+end_example
+
+* Assignment 4
+Date: September 02, 2020
+
+** Binary Search
+#+BEGIN_SRC cpp :tangle a4p1.cpp
+#include <bits/stdc++.h>
+#define SIZE 10
+
+using namespace std;
+
+int binarySearch(int arr[], int low, int high, int key)
+{
+  if (low <= high)
+  {
+    int mid = (low + high) / 2;
+    if (arr[mid] == key)
+      return mid;
+    if (arr[mid] > key)
+      return binarySearch(arr, low, mid - 1, key);
+      if (arr[mid] < key)
+      return binarySearch(arr, mid + 1, high, key);
+  }
+  return -1;
+}
+
+int main(){
+  int arr[SIZE] = {0,1,2,21,25,42,67,83,100, 129};
+  int key = 0;
+
+  cout << "Given array is: ";
+  for (int i = 0; i < SIZE; ++i) {
+    cout << arr[i] << " ";
+  }
+
+  cout << "\nEnter search key: ";
+  cin >> key;
+
+  int index = binarySearch(arr, 0, SIZE - 1, key);
+
+  if (index == -1) {
+    cout << "Key not found.\n";
+  } else {
+    cout << "Key found at index " << index << ".\n";
+  }
+
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a4p1
+Given array is: 0 1 2 21 25 42 67 83 100 129
+Enter search key: 83
+Key found at index 7.
+
+$ ./a4p1
+Given array is: 0 1 2 21 25 42 67 83 100 129
+Enter search key: 130
+Key not found.
+#+END_EXAMPLE
+* Assignment 5
+Date: September 09, 2020
+
+** Program 1
+#+BEGIN_SRC cpp :tangle a5p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int f(int n) {
+  if (n <= 2) {
+    return 5;
+  } else {
+    return f(n / 2) + f(n - 1);
+  }
+}
+
+int main(){
+  cout << f(10) << "\n";
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a5p1
+90
+#+END_EXAMPLE
+
+*** Analysis
+The given function is a recursion of the form,
+#+begin_center
+$T(n) = T(n - 1) + T(n / 2)$
+#+end_center
+
+The time complexity of the given function is $T(n) = O(2^{n})$.
+
+The space complexity of the given function is $S(n) = O(n)$.
+
+For $n = 10$, the function is called 35 times.
+
+To find values for various actual arguments, a =for= loop can be used:
+#+BEGIN_SRC cpp
+for (int i = 0; i < 10; i++) {
+  cout << "f(" << i << "): " << f(i) << "\n";
+}
+#+END_SRC
+
+*Output:*
+#+begin_example
+$ ./a5p1
+f(0): 5
+f(1): 5
+f(2): 5
+f(3): 10
+f(4): 15
+f(5): 20
+f(6): 30
+f(7): 40
+f(8): 55
+f(9): 70
+f(10): 90
+f(11): 110
+f(12): 140
+f(13): 170
+f(14): 210
+f(15): 250
+#+end_example
+
+** Program 2
+#+BEGIN_SRC cpp :tangle a5p2.cpp
+#include <bits/stdc++.h>
+using namespace std;
+using namespace std::chrono;
+
+void f(int n) {
+  if (n <= 2) {
+    return;
+  } else {
+    f(n - 1);
+    f(n - 1);
+  }
+}
+
+int main(){
+  auto start = high_resolution_clock::now();
+  f(2);
+  auto stop = high_resolution_clock::now();
+  cout << "f(2):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(4);
+  stop = high_resolution_clock::now();
+  cout << "f(4):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(6);
+  stop = high_resolution_clock::now();
+  cout << "f(4):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(6);
+  stop = high_resolution_clock::now();
+  cout << "f(6):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(10);
+  stop = high_resolution_clock::now();
+  cout << "f(10):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(20);
+  stop = high_resolution_clock::now();
+  cout << "f(20):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+  start = high_resolution_clock::now();
+  f(50);
+  stop = high_resolution_clock::now();
+  cout << "f(50):\t" << duration_cast<microseconds>(stop - start).count() << " microseconds" << "\n";
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a5p2
+f(2):	0 microseconds
+f(4):	0 microseconds
+f(4):	0 microseconds
+f(6):	0 microseconds
+f(10):	3 microseconds
+f(20):	2480 microseconds
+#+END_EXAMPLE
+
+*** Analysis
+The given function is a recursion of the form:
+#+begin_center
+$T(n) = 2T(n - 1)$
+#+end_center
+
+The time complexity of given program is $T(n) = O(2^{n})$.
+
+The space complexity of the given function is $S(n) = O(n)$.
+
+The program did not complete execution in a reasonable about of time for f(50), it was terminated by force.
+* Assignment 6
+Date: September 16, 2020
+
+** Program 1
+Program to implement a Linked List in a 2-dimentional array
+#+BEGIN_SRC cpp :tangle a6p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class LL
+{
+public:
+  int ll[2][10];
+  int head;
+  LL()
+  {
+    head = 0;
+    for (int i = 0; i < 10; i++)
+    {
+      ll[0][i] = 0;
+      ll[1][i] = -1;
+    }
+  }
+  bool addNode(int num)
+  {
+    if (ll[1][head] == -1)
+    {
+      ll[0][head] = num;
+      ll[1][head] = 0;
+    }
+    else
+    {
+      if (head == 9)
+      {
+        cout << "List is full"
+             << "\n";
+        return false;
+      }
+      int index = 0;
+      while (ll[1][index] != -1)
+      {
+        index++;
+      }
+      ll[1][head] = index;
+      head = index;
+      ll[0][head] = num;
+      ll[1][head] = 0;
+    }
+    return true;
+  }
+  void print()
+  {
+    if (ll[1][head] == -1)
+    {
+      cout << "List is empty"
+           << "\n";
+    }
+    else
+    {
+      int index = 0;
+      while (ll[1][index] != 0)
+      {
+        cout << ll[0][index]
+             << "-->";
+        index = ll[1][index];
+      }
+      cout << ll[0][index]
+           << "-->"
+           << "\n";
+    }
+  }
+};
+
+int main()
+{
+  LL linkedList;
+  char opt = 'y';
+  cout << "Array-based LL"
+       << "\n";
+  do
+  {
+    int num;
+    cout << "Enter element: ";
+    cin >> num;
+    if (linkedList.addNode(num))
+    {
+      linkedList.print();
+    }
+    cout << "Continue [Y/n]: ";
+    cin >> opt;
+  } while (opt != 'n');
+}
+
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+Array-based LL
+Enter element: 1
+1-->
+Continue [Y/n]: y
+Enter element: 2
+1-->2-->
+Continue [Y/n]: y
+Enter element: 3
+1-->2-->3-->
+Continue [Y/n]: y
+Enter element: 4
+1-->2-->3-->4-->
+Continue [Y/n]: y
+Enter element: 5
+1-->2-->3-->4-->5-->
+Continue [Y/n]: y
+Enter element: 6
+1-->2-->3-->4-->5-->6-->
+Continue [Y/n]: y
+Enter element: 7
+1-->2-->3-->4-->5-->6-->7-->
+Continue [Y/n]: y
+Enter element: 8
+1-->2-->3-->4-->5-->6-->7-->8-->
+Continue [Y/n]: y
+Enter element: 9
+1-->2-->3-->4-->5-->6-->7-->8-->9-->
+Continue [Y/n]: y
+Enter element: 0
+1-->2-->3-->4-->5-->6-->7-->8-->9-->0-->
+Continue [Y/n]: y
+Enter element: 1
+List is full
+Continue [Y/n]: n
+#+END_EXAMPLE
+
+** Lab Questions
+
+*** What will be the output of the following program?
+#+BEGIN_SRC c :tangle a6q1.c
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+  int *p;
+  p = (int *)malloc(20); /* Assume p has address of 1314 */
+  free(p);
+  printf("%u", p);
+  return 0;
+}
+#+END_SRC
+
+*Answer:* The value as well as the memory allocated to p is freed after the call to ~free~. However, the address stored in ~p~ still persists, thus the output will be =1314=.
+
+*** What will be the output of the following program?
+#+BEGIN_SRC c :tangle a6q2.c
+#include<stdlib.h>
+int main()
+{
+  int *p;
+  p = (int *)malloc(20);
+  printf("%d\n", sizeof(p));
+  free(p);
+  return 0;
+}
+#+END_SRC
+
+*Answer:* Memory allocated to various datatypes is platform dependent. However, the size of pointer is equal to the size on integer.
+On a 16-bit system, the size of integer is 2 bytes. Thus, the size of ~p~ here is 2 bytes.
+* Assignment 7
+Date: October 14, 2020
+
+** Program 1
+Program to implement basic operations on a Queue
+#+BEGIN_SRC cpp :tangle a7p1.cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+  public:
+    int data;
+    Node* next;
+    Node();
+    Node(int);
+};
+
+Node::Node() {
+  data = 0;
+  next = nullptr;
+}
+
+Node::Node(int d) {
+  data = d;
+  next = nullptr;
+}
+
+class Queue {
+  Node* head;
+  Node* tail;
+  public:
+    Queue();
+    bool isEmpty();
+    void enqueue(int);
+    int dequeue();
+    void display();
+};
+
+Queue::Queue() {
+  head = nullptr;
+  tail = nullptr;
+}
+
+bool Queue::isEmpty() {
+  return (head == nullptr && tail == nullptr);
+}
+
+void Queue::enqueue(int d) {
+  if (isEmpty()) {
+    Node* ptr = new Node(d);
+    head = ptr;
+    tail = ptr;
+  } else {
+    Node* ptr = new Node(d);
+    tail->next = ptr;
+    tail = tail->next;
+  }
+}
+
+int Queue::dequeue() {
+  if (isEmpty()) {
+    return -1;
+  } else if (head == tail) {
+    Node* ptr = head;
+    int temp = ptr->data;
+    head = head->next;
+    tail = head;
+    delete ptr;
+    return temp;
+  } else {
+    Node* ptr = head;
+    int temp = ptr->data;
+    head = head->next;
+    delete ptr;
+    return temp;
+  }
+}
+
+void Queue::display() {
+  if (isEmpty()) {
+    cout << "Queue is empty." << "\n";
+  } else if (head == tail) {
+    cout << head->data << "-->" << "\n";
+  } else {
+    Node* ptr = head;
+    while (ptr != tail->next) {
+      cout << ptr->data << "-->";
+      ptr = ptr->next;
+    }
+    cout << "\n";
+  }
+}
+
+int main()
+{
+  int choice = -1;
+  cout << "Queue as a linked list" << "\n\n";
+  Queue q;
+  do {
+    cout << "1. Enqueue" << "\n";
+    cout << "2. Dequeue"<< "\n";
+    cout << "3. Display queue" << "\n";
+    cout << "Enter choice: ";
+    cin >> choice;
+    switch (choice) {
+      case 1:
+      {
+        int d = 0;
+        cout << "Enter value: ";
+        cin >> d;
+        q.enqueue(d);
+      }
+      break;
+      case 2:
+      {
+        int d = q.dequeue();
+        cout << "Node " << d << " deleted." << "\n";
+      }
+      break;
+      case 3:
+        q.display();
+        break;
+      default:
+        choice = -1;
+        cout << "Wrong choice!" << "\n";
+    }
+  } while (choice != -1);
+  return 0;
+}
+#+END_SRC
+
+*** Output
+#+BEGIN_EXAMPLE
+$ ./a7p1
+Queue as a linked list
+
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 1
+Enter value: 5
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 1
+Enter value: 2
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 2
+Node 5 deleted.
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 3
+2-->
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 2
+Node 2 deleted.
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 3
+Queue is empty.
+1. Enqueue
+2. Dequeue
+3. Display queue
+Enter choice: 4
+Wrong choice!
+#+END_EXAMPLE
